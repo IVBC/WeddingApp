@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Container,
-  Background as StyledBackground,
-  Content,
-  StatusBar,
-} from './styles';
+import Header from '../Header';
+
+import { Container, Content, StatusBar } from './styles';
 
 export default function Background({ children }) {
   return (
     <Container>
       <StatusBar />
-      <StyledBackground />
+      {/* <StyledBackground /> */}
+      <Header />
       <Content>{children}</Content>
     </Container>
   );
