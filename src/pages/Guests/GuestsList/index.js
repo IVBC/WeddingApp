@@ -7,6 +7,7 @@ import api from '~/services/api';
 import ListItem from './ListItem';
 import Loading from '~/components/Loading';
 import EmptyListMessage from '~/components/ListEmptyMessage';
+import ModalConfirmation from '~/components/Modals/ModalConfirmation';
 
 import colors from '~/styles/colors';
 
@@ -62,6 +63,14 @@ function ListDelivery() {
 
   // Selection for guest type
   const [typeDelivered, setTypeDelivered] = useState(false);
+
+  const [isModalVisibleConfirmation, setModalVisibleConfirmation] = useState(
+    false
+  );
+
+  const toggleModalConfirmation = () => {
+    setModalVisibleConfirmation(!isModalVisibleConfirmation);
+  };
 
   const loadGuests = async () => {
     if (loading) {
@@ -160,15 +169,19 @@ function ListDelivery() {
   return (
     <>
       <Container>
+        <ModalConfirmation
+          isOpen={isModalVisibleConfirmation}
+          close={toggleModalConfirmation}
+        />
         <Content>
           <TitleContainer>
             <Icon name="group" />
-            <TitleText>Lista de Convidados</TitleText>
+            <TitleText>LISTA DE CONVIDADOS</TitleText>
           </TitleContainer>
           <ButtonContainer>
-            <Button onPress={() => {}}>
+            <Button onPress={() => toggleModalConfirmation()}>
               <ButtonText>Confirmação</ButtonText>
-              <Icon name="expand-more" />
+              <Icon name="chevron-right" />
             </Button>
           </ButtonContainer>
         </Content>

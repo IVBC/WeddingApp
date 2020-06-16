@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import cameraIcon from '../../assets/IconCamera.png';
 import CountDown from '../CountDown';
 
 import {
@@ -80,7 +79,7 @@ function TabBar({ state, descriptors, navigation }) {
                     {/* {options.tabBarIcon && (
 
                   )} */}
-                    <BarIconCamera isFocused={isFocused} source={cameraIcon} />
+                    <BarIconCamera isFocused={isFocused} name="add-a-photo" />
                     {/* <Label isFocused={isFocused}>{label}</Label> */}
                   </BarButtonCamera>
                 </>

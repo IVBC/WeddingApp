@@ -37,13 +37,13 @@ const CountDown = () => {
     result = `${result + temp} dia${temp > 1 ? 's' : ''}, `;
     x = dateFns.addDays(x, temp);
     temp = dateFns.differenceInHours(y, x);
-    result = `${result + temp} hora${temp > 1 ? 's' : ''}, `;
+    result = `${result + temp} Hr${temp > 1 ? 's' : ''}, `;
     x = dateFns.addHours(x, temp);
     temp = dateFns.differenceInMinutes(y, x);
-    result = `${result + temp} minuto${temp > 1 ? 's' : ''}, `;
+    result = `${result + temp} Min, `;
     x = dateFns.addMinutes(x, temp);
     temp = dateFns.differenceInSeconds(y, x);
-    result = `${result + temp} segundo${temp > 1 ? 's' : ''}`;
+    result = `${result + temp} Seg`;
 
     setCountDown(result);
   };

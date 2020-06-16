@@ -12,7 +12,6 @@ export const Container = styled.View`
   /* background: ${colors.primary}; */
   /* height: ${`${heightDevice * 0.11}px`}; */
   align-items: center;
-  margin-bottom: 8px;
 `;
 
 export const LogoHeader = styled.Image.attrs(() => ({

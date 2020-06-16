@@ -13,13 +13,13 @@ export const List = styled.FlatList.attrs(() => ({
 }))``;
 
 export const Container = styled.View`
-  margin: 32px;
+  margin: 4px 16px;
   flex: 1;
-
+/*
   border: 1px solid ${colors.border};
-  border-radius: 5px;
+  border-radius: 4px; */
 
-  background-color: ${colors.secondary};
+  /* background-color: ${colors.secondary}; */
 
   margin-bottom: 28px;
   padding: 1px;
@@ -27,35 +27,37 @@ export const Container = styled.View`
 
 export const Content = styled.View`
   flex-direction: row;
-  align-items: center;
-  background-color: ${colors.bg};
-  padding: 16px 16px;
-  /* background-color: red; */
+  align-items: flex-start;
+  background-color: ${colors.primary};
+  margin-bottom: 8px;
 `;
 
 export const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   flex: 1;
+  padding: 5px 12px;
+  border-right-width: 1px;
+  border-color: ${colors.bg};
 `;
 
 export const Icon = styled(StyledIconk).attrs(({ color }) => ({
   size: 24,
-  color: color || colors.primary,
+  color: color || colors.white,
 }))``;
 
 export const TitleText = styled.Text`
-  font-family: 'Roboto-Regular';
-  font-size: 14px;
-  font-weight: bold;
-  color: ${colors.primary};
+  font-family: 'Roboto-Bold';
+  font-size: 13px;
+  font-weight: 900;
+
+  color: ${colors.white};
   margin-left: 10px;
 `;
 
 export const ButtonContainer = styled.View`
-  border-radius: 10px;
-  border: 2px solid #6c89b2;
-  background: #e8e7ed;
+  border-radius: 4px;
+  /* border: 2px solid #6c89b2; */
 `;
 
 export const Button = styled(RectButton)`
@@ -63,15 +65,15 @@ export const Button = styled(RectButton)`
   justify-content: center;
   align-items: center;
   /* flex: 1; */
-  height: 26px;
-  background: #e8e7ed;
-  padding: 4px;
-  border-radius: 10px;
+  flex: 1;
+  /* background: #e8e7ed; */
+  padding: 0 4px;
+  border-radius: 4px;
 `;
 
 export const ButtonText = styled.Text`
-  font-size: 12px;
-  color: ${colors.primary};
-  margin-right: 1px;
+  font-size: 13px;
+  color: ${colors.white};
+  margin-right: 0px;
   margin-left: 6px;
 `;

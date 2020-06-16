@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import colors from '~/styles/colors';
 
@@ -6,14 +7,21 @@ export const WelcomeContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 16px 32px;
+  margin: 8px 32px;
+  margin-top: 0px;
+  padding: 8px 0;
+  border-color: ${colors.border};
+  border-top-width: 2px;
+  border-bottom-width: 2px;
 `;
-export const WelcomeTextContainer = styled.View``;
+export const WelcomeTextContainer = styled.View`
+  flex: 1;
+`;
 
 export const TitleWelcome = styled.Text`
   color: #6c89b2;
   font-family: 'Roboto';
-  font-size: 32px;
+  font-size: 24px;
   line-height: 33px;
 `;
 
@@ -64,4 +72,27 @@ export const Description = styled.Text`
   text-align: justify;
 
   color: #002966;
+`;
+
+export const FloatingButton = styled.TouchableOpacity`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  border-width: 1px;
+  border-color: ${colors.primary};
+
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 4px rgba(3, 3, 3, 0.25);
+  position: absolute;
+  right: 24px;
+  bottom: 8px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const IconFloatingButton = styled(Icon).attrs((props) => ({
+  size: 48,
+  color: colors.primary,
+}))`
+  margin-top: 5px;
 `;

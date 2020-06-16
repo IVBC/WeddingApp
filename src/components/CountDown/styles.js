@@ -7,21 +7,21 @@ export const Container = styled.View`
   background-color: #dde3ef;
   width: 100%;
   flex-direction: row;
+
+  /* margin: 4px 0px; */
 `;
 export const Content = styled.View`
-  margin-top: 4px;
-  padding: 8px;
+  margin-bottom: 8px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   flex: 1;
-  margin-bottom: 12px;
 `;
 export const IconTime = styled(Icon).attrs((props) => ({
   size: 24,
   color: colors.primary,
 }))`
-  margin-right: 8px;
+  margin-right: 4px;
 `;
 
 export const TextTitle = styled.Text`
@@ -31,4 +31,5 @@ export const TextTitle = styled.Text`
 export const TextTime = styled.Text`
   /* font-weight: bold; */
   color: ${colors.primary};
+  /* letter-spacing: 0.0001px; */
 `;

@@ -6,9 +6,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBar from '~/components/TabBar';
 
 import Guests from '~/pages/Guests';
-import Profile from '~/pages/Profile';
+import Menu from '~/pages/Menu';
+import Location from '~/pages/Location';
 import DeliveriesRoutes from '~/routes/Deliveries.routes';
 import colors from '~/styles/colors';
+import GiftSuggestion from '~/pages/GiftSuggestion';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +41,7 @@ export default function MainTab() {
             tabBarLabel: 'Cardápio',
             tabBarIcon: 'restaurant-menu',
           }}
-          component={HomeScreen}
+          component={Menu}
         />
         <Tab.Screen
           name="photo"
@@ -55,7 +57,7 @@ export default function MainTab() {
             tabBarLabel: 'Endereço',
             tabBarIcon: 'location-on',
           }}
-          component={HomeScreen}
+          component={Location}
         />
         <Tab.Screen
           name="GiftSuggestion"
@@ -63,7 +65,7 @@ export default function MainTab() {
             tabBarLabel: 'Sugestão',
             tabBarIcon: 'redeem',
           }}
-          component={HomeScreen}
+          component={GiftSuggestion}
         />
       </Tab.Navigator>
     </>
