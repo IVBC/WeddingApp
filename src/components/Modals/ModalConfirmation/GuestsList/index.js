@@ -7,7 +7,6 @@ import api from '~/services/api';
 import ListItem from './ListItem';
 import Loading from '~/components/Loading';
 import EmptyListMessage from '~/components/ListEmptyMessage';
-import ModalConfirmation from '~/components/Modals/ModalConfirmation';
 
 import colors from '~/styles/colors';
 
@@ -20,57 +19,20 @@ import {
   TitleContainer,
   Icon,
   TitleText,
-  Button,
-  ButtonText,
-  ButtonContainer,
 } from './styles';
 
-function ListDelivery() {
-  const { id } = useSelector((state) => state.auth);
+function ListDelivery({ guests: _guests, updateGuests }) {
+  // const { id } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const [guests, setGuests] = useState([
-    {
-      id: 1,
-      name: 'Andreia Pardo Lessa',
-      isConfirmed: false,
-    },
-    {
-      id: 2,
-      name: 'Flávio Lessa Pardo',
-      isConfirmed: false,
-    },
-    {
-      id: 3,
-      name: 'Wendrio Pardo Silva',
-      isConfirmed: false,
-    },
-    {
-      id: 4,
-      name: 'Flávia Hernanes Ferreira',
-      isConfirmed: false,
-    },
-    {
-      id: 5,
-      name: 'Andrei Pardo Lessa',
-      isConfirmed: false,
-    },
-  ]);
+  const [guests, setGuests] = useState(_guests);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
   // Selection for guest type
   const [typeDelivered, setTypeDelivered] = useState(false);
-
-  const [isModalVisibleConfirmation, setModalVisibleConfirmation] = useState(
-    false
-  );
-
-  const toggleModalConfirmation = () => {
-    setModalVisibleConfirmation(!isModalVisibleConfirmation);
-  };
 
   const loadGuests = async () => {
     if (loading) {
@@ -84,13 +46,13 @@ function ListDelivery() {
     setLoading(true);
 
     try {
-      const response = await api.get(`/deliverer/${id}/guests`, {
-        params: { page, filter: typeDelivered ? 'DELIVERED' : 'OPEN' },
-      });
+      // const response = await api.get(`/deliverer/${id}/guests`, {
+      //   params: { page, filter: typeDelivered ? 'DELIVERED' : 'OPEN' },
+      // });
 
-      const {
-        data: { guests: _guests, count },
-      } = response;
+      // const {
+      //   data: { guests: _guests, count },
+      // } = response;
 
       setGuests((prevGuests) => [...prevGuests, ..._guests]);
 
@@ -142,19 +104,10 @@ function ListDelivery() {
 
   const renderEmpty = useCallback(() => {
     if (!loading) {
-      let contentEmptyListMessage;
-
-      if (true) {
-        contentEmptyListMessage = {
-          iconName: 'truck-check',
-          message: 'Não há registros de entregas.',
-        };
-      } else {
-        contentEmptyListMessage = {
-          iconName: 'truck-delivery',
-          message: 'Não há entregas pendentes.',
-        };
-      }
+      const contentEmptyListMessage = {
+        iconName: 'account-group-outline',
+        message: 'Não há convidados ainda',
+      };
 
       return (
         <EmptyListMessage
@@ -166,13 +119,20 @@ function ListDelivery() {
     return null;
   }, [loading, typeDelivered]);
 
+  const confirmGuest = (id) => {
+    const idxGuest = guests.findIndex((g) => g.id === id);
+    const updatedGuests = [...guests];
+    updatedGuests[idxGuest] = {
+      ...updatedGuests[idxGuest],
+      isConfirmed: !updatedGuests[idxGuest].isConfirmed,
+    };
+    setGuests(updatedGuests);
+    updateGuests(updatedGuests);
+  };
+
   return (
     <>
       <Container>
-        <ModalConfirmation
-          isOpen={isModalVisibleConfirmation}
-          close={toggleModalConfirmation}
-        />
         <Content>
           <TitleContainer>
             <Icon name="group" />
@@ -185,14 +145,10 @@ function ListDelivery() {
           // onEndReached={loadGuests}
           ListFooterComponent={moreLoading}
           ListEmptyComponent={renderEmpty}
-          renderItem={({ item: guest }) => <ListItem guest={guest} />}
+          renderItem={({ item: guest }) => (
+            <ListItem guest={guest} toogleConfirmGuest={confirmGuest} />
+          )}
         />
-        <ButtonContainer>
-          <Button onPress={() => toggleModalConfirmation()}>
-            <ButtonText>Confirmar</ButtonText>
-            {/* <Icon name="check" /> */}
-          </Button>
-        </ButtonContainer>
       </Container>
     </>
   );

@@ -11,6 +11,7 @@ import Location from '~/pages/Location';
 import DeliveriesRoutes from '~/routes/Deliveries.routes';
 import colors from '~/styles/colors';
 import GiftSuggestion from '~/pages/GiftSuggestion';
+import SendPhotos from '~/pages/SendPhotos';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,29 +37,23 @@ export default function MainTab() {
           component={Guests}
         />
         <Tab.Screen
-          name="restaurantMenu"
+          name="Address"
           options={{
-            tabBarLabel: 'Cardápio',
-            tabBarIcon: 'restaurant-menu',
+            tabBarLabel: 'Endereço',
+            tabBarIcon: 'place',
           }}
-          component={Menu}
+          component={Location}
         />
+
         <Tab.Screen
           name="photo"
           options={{
             tabBarLabel: 'Tirar foto',
             tabBarIcon: 'photo-camera',
           }}
-          component={HomeScreen}
+          component={SendPhotos}
         />
-        <Tab.Screen
-          name="Address"
-          options={{
-            tabBarLabel: 'Endereço',
-            tabBarIcon: 'location-on',
-          }}
-          component={Location}
-        />
+
         <Tab.Screen
           name="GiftSuggestion"
           options={{
@@ -66,6 +61,15 @@ export default function MainTab() {
             tabBarIcon: 'redeem',
           }}
           component={GiftSuggestion}
+        />
+
+        <Tab.Screen
+          name="restaurantMenu"
+          options={{
+            tabBarLabel: 'Cardápio',
+            tabBarIcon: 'restaurant-menu',
+          }}
+          component={Menu}
         />
       </Tab.Navigator>
     </>

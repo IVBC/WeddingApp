@@ -91,7 +91,7 @@ const Location = () => {
             }}
           >
             {loading ? (
-              <ActivityIndicator size="large" color="#ffffff" />
+              <ActivityIndicator size={30} color="#ffffff" />
             ) : (
               <>
                 <ButtonIcon name="near-me" />

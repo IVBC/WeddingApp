@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 export default function createRouter(isSigned = false) {
   return (
     <Stack.Navigator>
-      {!isSigned && false ? (
+      {!isSigned ? (
         <Stack.Screen
           name="SignIn"
           options={{ headerShown: false }}

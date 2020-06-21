@@ -32,7 +32,7 @@ export const CloseIcon = styled(Icon).attrs(() => ({
 }))``;
 export const ContainerList = styled.View``;
 
-export const ConfirmButton = styled.View``;
+export const ConfirmButton = styled.TouchableOpacity``;
 
 export const ButtonContainer = styled.View`
   border-radius: 4px;
@@ -48,4 +48,26 @@ export const CloseButton = styled(RectButton)`
   /* background: #e8e7ed; */
   padding: 4px;
   border-radius: 4px;
+`;
+
+export const ButtonConfirmContainer = styled.View`
+  border-radius: 4px;
+  /* border: 2px solid #6c89b2; */
+`;
+
+export const ButtonConfirm = styled(RectButton)`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* flex: 1; */
+  /* flex: 1; */
+  background: #6c89b2;
+  padding: 10px 10px;
+  border-radius: 4px;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 14px;
+  color: ${colors.white};
+  margin-right: 4px;
 `;

@@ -4,14 +4,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import colors from '~/styles/colors';
 
-export const Wrapper = styled.View`
-  margin-top: 36px;
+export const Wrapper = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})`
   flex: 1;
 `;
 export const MenuContainer = styled(LinearGradient).attrs({
   // colors: ['#F2F5FF', 'rgba(242, 245, 255, 1)', 'transparent'],
   // locations: [0, 0.5, 0.6],
 })`
+  margin-top: 36px;
   flex: 1;
   margin-left: 24px;
   margin-right: 24px;
@@ -23,7 +25,7 @@ export const MenuIcon = styled(Icon).attrs((props) => ({
   color: colors.primary,
 }))`
   position: absolute;
-  top: -9px;
+  top: 26px;
   left: 44px;
 
   z-index: 1;
@@ -128,8 +130,9 @@ export const ButtonTitle = styled.Text`
   color: ${colors.white};
 `;
 export const ButtonIcon = styled(Icon).attrs((props) => ({
-  size: 36,
+  size: 24,
   color: colors.white,
 }))`
+  margin: 4px;
   margin-right: 4px;
 `;

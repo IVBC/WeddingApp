@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Text, View } from 'react-native';
 import Modal from 'react-native-modal';
 import GuestsList from './GuestsList';
@@ -9,14 +9,27 @@ import {
   TitleHeader,
   CloseButton,
   CloseIcon,
-  ContainerList,
   ButtonContainer,
-  ConfirmButton,
+  ButtonConfirm,
+  ButtonText,
+  ButtonConfirmContainer,
 } from './styles';
 
-function ModalConfirmation({ isOpen, close }) {
+function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
   console.log(isOpen);
   console.log(close);
+
+  const [guests, setGuests] = useState(_guests);
+
+  const updateGuests = (gts) => {
+    setGuests(gts);
+  };
+
+  const handleConfirmGuests = () => {
+    // solicitacao da api aqui com o loading
+    confirmGuests(guests);
+    close();
+  };
   return (
     <Modal isVisible={isOpen}>
       <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -30,8 +43,14 @@ function ModalConfirmation({ isOpen, close }) {
               </CloseButton>
             </ButtonContainer>
           </Header>
-          <GuestsList />
-          <ConfirmButton />
+          <GuestsList guests={guests} updateGuests={updateGuests} />
+
+          <ButtonConfirmContainer>
+            <ButtonConfirm onPress={() => handleConfirmGuests()}>
+              <ButtonText>Confirmar</ButtonText>
+              {/* <Icon name="check" /> */}
+            </ButtonConfirm>
+          </ButtonConfirmContainer>
         </ContainerModal>
       </View>
     </Modal>

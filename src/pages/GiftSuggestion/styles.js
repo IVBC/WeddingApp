@@ -16,8 +16,14 @@ const widthDevice = dimensions.width;
 export const TitleHeader = styled.View`
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 8px;
+
   /* background-color: red; */
+`;
+
+export const Body = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  flex: 1;
 `;
 export const Title = styled.Text`
   font-size: 40px;
@@ -94,6 +100,7 @@ export const LogoCamicado = styled.Image.attrs(() => ({
 
 export const BankDepositContainer = styled.View`
   margin: 24px 32px;
+  margin-top: 16px;
 `;
 export const HeaderBankDeposit = styled.View`
   padding: 8px;
@@ -109,6 +116,7 @@ export const TitleBankDeposit = styled.Text`
   text-align: center;
 
   color: #4b6fa2;
+  margin-bottom: 10px;
 `;
 export const BodyBankDeposit = styled(LinearGradient).attrs({
   colors: ['#cad5e7', 'rgba(242, 245, 255, 1)'],
@@ -136,5 +144,5 @@ export const DetailText = styled.Text`
   font-size: 14px;
   line-height: 20px;
 
-  color: #002966;
+  color: ${colors.primary};
 `;

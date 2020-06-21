@@ -14,26 +14,30 @@ import {
   CheckIcon,
 } from './styles';
 
-const ListItem = ({ guest }) => {
+const ListItem = ({ guest, toogleConfirmGuest }) => {
   const { navigate } = useNavigation();
 
-  const navigateToDetail = useCallback(() => navigate('Guests', { guest }), [
-    navigate,
-    guest,
-  ]);
+  // const navigateToDetail = useCallback(() => navigate('Guests', { guest }), [
+  //   navigate,
+  //   guest,
+  // ]);
 
   // const formattedDate = useMemo(() => {
   //   return format(parseISO(guest.created_at), 'MM/dd/yyyy');
   // }, [guest.created_at]);
 
   return (
-    <Container>
+    <Container onPress={() => toogleConfirmGuest(guest.id)}>
       <Content>
         <Guest>
           <TitleIcon />
-          <TitleText>Isaias Nilson Batista da Costa</TitleText>
+          <TitleText>{guest.name}</TitleText>
         </Guest>
-        <CheckIcon name="close" color="#ff0000" />
+        {guest.isConfirmed ? (
+          <CheckIcon name="check" color="#219653" />
+        ) : (
+          <CheckIcon name="close" color="#ff0000" />
+        )}
         {/* <Progress status={guest.status} /> */}
       </Content>
     </Container>
@@ -43,7 +47,10 @@ const ListItem = ({ guest }) => {
 ListItem.propTypes = {
   guest: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    name: PropTypes.string,
+    isConfirmed: PropTypes.bool,
   }).isRequired,
+  toogleConfirmGuest: PropTypes.func.isRequired,
 };
 
 export default memo(ListItem);

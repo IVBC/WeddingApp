@@ -34,7 +34,7 @@ function ListDelivery() {
     {
       id: 1,
       name: 'Andreia Pardo Lessa',
-      isConfirmed: false,
+      isConfirmed: true,
     },
     {
       id: 2,
@@ -166,12 +166,18 @@ function ListDelivery() {
     return null;
   }, [loading, typeDelivered]);
 
+  const confirmedGuests = (_guests) => {
+    setGuests(_guests);
+  };
+
   return (
     <>
       <Container>
         <ModalConfirmation
           isOpen={isModalVisibleConfirmation}
           close={toggleModalConfirmation}
+          guests={guests}
+          confirmGuests={confirmedGuests}
         />
         <Content>
           <TitleContainer>

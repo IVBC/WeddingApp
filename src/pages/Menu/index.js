@@ -27,9 +27,23 @@ const Menu = () => {
         'Filé Mignon ao Molho Madeira, Bacalhau gratinado à Gomes de Sá, Lasanha de Carne ao Molho Bolonhesa',
     },
     {
-      title: 'Pratos Quentes',
+      title: 'Acompanhamentos',
       description:
-        'Filé Mignon ao Molho Madeira, Bacalhau gratinado à Gomes de Sá, Lasanha de Carne ao Molho Bolonhesa',
+        'Arroz Branco, Farofa, Salada Tradicional, Maionese/Salpicão',
+    },
+    {
+      title: 'Doces Tradicionais e Finos',
+      description:
+        'Brigadeiro Tradicional, Olho de Sogra, Doce de Coco, Doce de Ameixa, Casadinho, Uvas encapadas, Mini-Pudins de Leite, Tacinhas Individuais de Chocolate Recheada',
+    },
+    {
+      title: 'Sobremesas',
+      description: 'Torta Sonho de Valsa e Tarça da Felicidade',
+    },
+    {
+      title: 'Bebidas',
+      description:
+        'Suco de Cupuaçu, Suco de Maracujá, Coca-Cola, Coca-Cola Zero, Fanta Laranja, Guaraná Baré, Guaraná Real, Guaraná Tuchaua, Água Mineral sem Gás',
     },
   ]);
   return (

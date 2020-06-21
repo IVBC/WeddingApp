@@ -31,9 +31,13 @@ const ListItem = ({ guest }) => {
       <Content>
         <Guest>
           <TitleIcon />
-          <TitleText>Isaias Nilson Batista da Costa</TitleText>
+          <TitleText>{guest.name}</TitleText>
         </Guest>
-        <CheckIcon name="close" color="#ff0000" />
+        {guest.isConfirmed ? (
+          <CheckIcon name="check" color="#219653" />
+        ) : (
+          <CheckIcon name="close" color="#ff0000" />
+        )}
         {/* <Progress status={guest.status} /> */}
       </Content>
     </Container>

@@ -20,6 +20,8 @@ export const Container = styled(LinearGradient).attrs({
   flex: 1;
 `;
 
+export const Content = styled.ScrollView``;
+
 export const Header = styled.View`
   /* padding: 16px; */
   /* margin-top: 16px; */

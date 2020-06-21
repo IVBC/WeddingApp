@@ -58,26 +58,3 @@ export const TitleText = styled.Text`
   color: ${colors.white};
   margin-left: 10px;
 `;
-
-export const ButtonContainer = styled.View`
-  margin-top: 16px;
-  border-radius: 4px;
-  /* border: 2px solid #6c89b2; */
-`;
-
-export const Button = styled(RectButton)`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  /* flex: 1; */
-  /* flex: 1; */
-  background: #6c89b2;
-  padding: 10px 10px;
-  border-radius: 4px;
-`;
-
-export const ButtonText = styled.Text`
-  font-size: 14px;
-  color: ${colors.white};
-  margin-right: 4px;
-`;
