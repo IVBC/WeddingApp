@@ -15,11 +15,12 @@ export function* signIn({ payload }) {
       yield put(signFailure());
       return;
     }
-    const response = yield call(api.get, `/deliverers/${id}`);
+    yield put(signInSuccess('123', { name: 'isaque' }));
+    // const response = yield call(api.get, `/deliverers/${id}`);
 
-    const { data: user } = response;
+    // const { data: user } = response;
 
-    yield put(signInSuccess(id, user));
+    // yield put(signInSuccess(id, user));
   } catch (err) {
     if (err.response) {
       const codeErro = err.response.status;
