@@ -29,7 +29,7 @@ export default function MainTab() {
       <StatusBar backgroundColor={colors.bg} barStyle="dark-content" />
       <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
         <Tab.Screen
-          name="guestList"
+          name="GuestList"
           options={{
             tabBarLabel: 'Convidados',
             tabBarIcon: 'people',
@@ -46,7 +46,7 @@ export default function MainTab() {
         />
 
         <Tab.Screen
-          name="photo"
+          name="Photo"
           options={{
             tabBarLabel: 'Tirar foto',
             tabBarIcon: 'photo-camera',
