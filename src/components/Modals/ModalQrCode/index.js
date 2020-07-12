@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Text, StatusBar, View } from 'react-native';
 import Modal from 'react-native-modal';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -18,12 +18,24 @@ function ModalQrCode({ isOpen, close }) {
   const [valueForQRCode, setValueForQRCode] = useState('{"id": "123344"}');
 
   return (
-    <Modal isVisible={isOpen}>
+    <Modal
+      isVisible={isOpen}
+      // animationInTiming={2000}
+      // animationOutTiming={2000}
+      // backdropTransitionInTiming={10}
+      // backdropTransitionOutTiming={10}
+    >
+      <StatusBar backgroundColor="rgba(0,0,0,0.7)" />
+
       <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
         <ContainerModal>
           <Header>
             <ButtonContainer>
-              <CloseButton onPress={() => close()}>
+              <CloseButton
+                onPress={() => {
+                  close();
+                }}
+              >
                 <CloseIcon />
               </CloseButton>
             </ButtonContainer>

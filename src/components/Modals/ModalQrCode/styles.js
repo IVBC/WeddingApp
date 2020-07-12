@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { RectButton } from 'react-native-gesture-handler';
+
 import colors from '~/styles/colors';
 
 export const ContainerModal = styled(LinearGradient).attrs({
@@ -43,7 +43,7 @@ export const ButtonContainer = styled.View`
   /* border: 2px solid #6c89b2; */
 `;
 
-export const CloseButton = styled(RectButton)`
+export const CloseButton = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   align-items: center;
