@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Text, View } from 'react-native';
+import {
+  Button,
+  Text,
+  StatusBar,
+  View,
+  Dimensions,
+  Platform,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import GuestsList from './GuestsList';
 
@@ -16,9 +23,6 @@ import {
 } from './styles';
 
 function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
-  console.log(isOpen);
-  console.log(close);
-
   const [guests, setGuests] = useState(_guests);
 
   const updateGuests = (gts) => {
@@ -27,12 +31,14 @@ function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
 
   const handleConfirmGuests = () => {
     // solicitacao da api aqui com o loading
+    console.log('confimaandoo');
     confirmGuests(guests);
     close();
   };
   return (
     <Modal isVisible={isOpen}>
       <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+        <StatusBar backgroundColor="rgba(0,0,0,0.7)" />
         <ContainerModal>
           <Header>
             <TitleHeader>Selecione os convidados confirmados</TitleHeader>

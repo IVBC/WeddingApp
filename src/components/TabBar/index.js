@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
+import { View } from 'react-native';
 import CountDown from '../CountDown';
 
 import {
@@ -47,44 +48,38 @@ function TabBar({ state, descriptors, navigation }) {
             });
           };
 
-          return (
-            <>
-              {index !== 2 ? (
-                <BarButton
-                  key={route.name}
-                  accessibilityRole="button"
-                  accessibilityStates={isFocused ? ['selected'] : []}
-                  accessibilityLabel={options.tabBarAccessibilityLabel}
-                  testID={options.tabBarTestID}
-                  onPress={onPress}
-                  onLongPress={onLongPress}
-                >
-                  {options.tabBarIcon && (
-                    <BarIcon isFocused={isFocused} name={options.tabBarIcon} />
-                  )}
-                  <Label isFocused={isFocused}>{label}</Label>
-                </BarButton>
-              ) : (
-                <>
-                  <BarButton />
-                  <BarButtonCamera
-                    key={route.name}
-                    accessibilityRole="button"
-                    accessibilityStates={isFocused ? ['selected'] : []}
-                    accessibilityLabel={options.tabBarAccessibilityLabel}
-                    testID={options.tabBarTestID}
-                    onPress={onPress}
-                    onLongPress={onLongPress}
-                  >
-                    {/* {options.tabBarIcon && (
+          return index !== 2 ? (
+            <BarButton
+              key={route.name}
+              accessibilityRole="button"
+              accessibilityStates={isFocused ? ['selected'] : []}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarTestID}
+              onPress={onPress}
+              onLongPress={onLongPress}
+            >
+              {options.tabBarIcon && (
+                <BarIcon isFocused={isFocused} name={options.tabBarIcon} />
+              )}
+              <Label isFocused={isFocused}>{label}</Label>
+            </BarButton>
+          ) : (
+            <BarButton key={route.name}>
+              <BarButtonCamera
+                accessibilityRole="button"
+                accessibilityStates={isFocused ? ['selected'] : []}
+                accessibilityLabel={options.tabBarAccessibilityLabel}
+                testID={options.tabBarTestID}
+                onPress={onPress}
+                onLongPress={onLongPress}
+              >
+                {/* {options.tabBarIcon && (
 
                   )} */}
-                    <BarIconCamera isFocused={isFocused} name="add-a-photo" />
-                    {/* <Label isFocused={isFocused}>{label}</Label> */}
-                  </BarButtonCamera>
-                </>
-              )}
-            </>
+                <BarIconCamera isFocused={isFocused} name="add-a-photo" />
+                {/* <Label isFocused={isFocused}>{label}</Label> */}
+              </BarButtonCamera>
+            </BarButton>
           );
         })}
       </Container>

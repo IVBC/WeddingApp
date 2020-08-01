@@ -17,5 +17,5 @@ export default function Background({ children }) {
 }
 
 Background.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };

@@ -43,7 +43,9 @@ export const BarButtonCamera = styled.TouchableOpacity`
   height: 60px;
   width: 60px;
   top: -15px;
-  left: ${`${widthDevice / 2 - 30}px`};
+  /* left: ${`${widthDevice / 2 - 30}px`}; */
+
+  /* right: 0; */
   align-items: center;
   justify-content: center;
   position: absolute;
