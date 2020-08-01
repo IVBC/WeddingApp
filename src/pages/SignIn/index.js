@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  SafeAreaView,
 } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -62,52 +63,54 @@ export default function SignIn() {
 
   return (
     <Container>
-      <Header>
-        <LogoFlor />
-      </Header>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        enabled
-      >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}
+      <SafeAreaView style={{ flex: 1 }}>
+        <Header>
+          <LogoFlor />
+        </Header>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          enabled
         >
-          <StatusBar backgroundColor={colors.bg} barStyle="dark-content" />
-          {/* <Content> */}
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{ flex: 1 }}
+          >
+            <StatusBar backgroundColor={colors.bg} barStyle="dark-content" />
+            {/* <Content> */}
 
-          <Body>
-            <Logo />
-            <Form ref={formRef} onSubmit={handleSubmit}>
-              <FormInput
-                name="id"
-                placeholder="Digite a senha do seu convite"
-                returnKeyType="send"
-                autoCorrect={false}
-                autCapitalize="none"
-                onSubmitEditing={handleSubmit}
-              />
+            <Body>
+              <Logo />
+              <Form ref={formRef} onSubmit={handleSubmit}>
+                <FormInput
+                  name="id"
+                  placeholder="Digite a senha do seu convite"
+                  returnKeyType="send"
+                  autoCorrect={false}
+                  autCapitalize="none"
+                  onSubmitEditing={handleSubmit}
+                />
 
-              <SubmitButton
-                loading={loading}
-                onPress={() => formRef.current.submitForm()}
-              >
-                ENTRAR
-              </SubmitButton>
-            </Form>
-          </Body>
-          {/* {!isKeyboardVisible && (
+                <SubmitButton
+                  loading={loading}
+                  onPress={() => formRef.current.submitForm()}
+                >
+                  ENTRAR
+                </SubmitButton>
+              </Form>
+            </Body>
+            {/* {!isKeyboardVisible && (
             <Footer>
               <LogoFlor />
             </Footer>
           )} */}
-          {/* </Content> */}
-        </ScrollView>
-      </KeyboardAvoidingView>
-      <Footer>
-        <LogoFlor />
-      </Footer>
+            {/* </Content> */}
+          </ScrollView>
+        </KeyboardAvoidingView>
+        <Footer>
+          <LogoFlor />
+        </Footer>
+      </SafeAreaView>
     </Container>
   );
 }
