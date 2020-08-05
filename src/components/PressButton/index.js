@@ -4,8 +4,10 @@ import { Animated, TouchableWithoutFeedback } from 'react-native';
 
 import { Button, ContentButton, bgFill, TextError } from './styles';
 
+import colors from '~/styles/colors';
+
 const ACTION_TIMER = 3000;
-const COLORS = ['#7D40E7', '#F0EFEF'];
+const COLORS = [colors.bg, colors.primary];
 
 export default function PressButton({ children, onLongPress }) {
   const [pressAction] = useState(new Animated.Value(0));

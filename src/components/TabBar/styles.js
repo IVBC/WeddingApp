@@ -34,8 +34,9 @@ export const BarIcon = styled(Icon).attrs((props) => ({
 
 export const Label = styled.Text`
   color: ${(props) => (props.isFocused ? '#2F80ED' : colors.grey)};
-  font-size: 11px;
-  font-weight: bold;
+  font-size: 10px;
+  flex: 1;
+  /* font-weight: bold; */
 `;
 
 export const BarButtonCamera = styled.TouchableOpacity`
@@ -54,7 +55,7 @@ export const BarButtonCamera = styled.TouchableOpacity`
   background-color: ${colors.primary};
 `;
 
-export const BarIconCamera = styled(Icon).attrs((props) => ({
+export const BarIconCamera = styled(Icon).attrs(() => ({
   size: 34,
   color: colors.bg,
 }))``;

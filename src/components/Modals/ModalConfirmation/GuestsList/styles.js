@@ -28,7 +28,7 @@ export const Container = styled.View`
 
   /* background-color: ${colors.secondary}; */
 
-  margin-bottom: 28px;
+  margin-bottom: 12px;
   padding: 1px;
 `;
 

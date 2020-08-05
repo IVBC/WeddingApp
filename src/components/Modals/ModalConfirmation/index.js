@@ -41,7 +41,7 @@ function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
         <StatusBar backgroundColor="rgba(0,0,0,0.7)" />
         <ContainerModal>
           <Header>
-            <TitleHeader>Selecione os convidados confirmados</TitleHeader>
+            <TitleHeader>Confirmação de convidados</TitleHeader>
 
             <ButtonContainer>
               <CloseButton onPress={() => close()}>

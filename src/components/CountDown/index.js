@@ -43,7 +43,7 @@ const CountDown = () => {
     result = `${result + temp} Min, `;
     x = dateFns.addMinutes(x, temp);
     temp = dateFns.differenceInSeconds(y, x);
-    result = `${result + temp} Seg`;
+    result = `${result + temp} s`;
 
     setCountDown(result);
   };

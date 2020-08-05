@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from '~/pages/SignIn';
 
 import MainTabRoutes from './MainTab.routes';
+import MainTabReceptionRoutes from './MainTabReception.routes';
 
 const Stack = createStackNavigator();
 

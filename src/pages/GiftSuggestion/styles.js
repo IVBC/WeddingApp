@@ -99,7 +99,7 @@ export const LogoCamicado = styled.Image.attrs(() => ({
 `;
 
 export const BankDepositContainer = styled.View`
-  margin: 24px 32px;
+  margin: 24px 0px;
   margin-top: 16px;
 `;
 export const HeaderBankDeposit = styled.View`
@@ -126,7 +126,7 @@ export const BodyBankDeposit = styled(LinearGradient).attrs({
   justify-content: space-around;
   align-items: center;
   background-color: red;
-  padding: 12px;
+  padding: 12px 16px;
 `;
 export const IconCard = styled(Icon).attrs((props) => ({
   size: 36,

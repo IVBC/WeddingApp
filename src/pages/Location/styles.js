@@ -13,7 +13,7 @@ export const MenuContainer = styled(LinearGradient).attrs({
   // colors: ['#F2F5FF', 'rgba(242, 245, 255, 1)', 'transparent'],
   // locations: [0, 0.5, 0.6],
 })`
-  margin-top: 36px;
+  margin-top: 16px;
   flex: 1;
   margin-left: 24px;
   margin-right: 24px;
@@ -25,7 +25,7 @@ export const MenuIcon = styled(Icon).attrs((props) => ({
   color: colors.primary,
 }))`
   position: absolute;
-  top: 26px;
+  top: 6px;
   left: 44px;
 
   z-index: 1;
@@ -37,7 +37,7 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 32px;
+  padding: 32px 16px;
   padding-top: 20px;
   padding-bottom: 2px;
 `;
@@ -48,6 +48,8 @@ export const TitleHeader = styled.Text`
   font-weight: normal;
   font-size: 24px;
   line-height: 28px;
+  margin-right: 8px;
+  flex: 1;
 
   color: ${colors.primary};
 `;
@@ -106,7 +108,7 @@ export const Details = styled.View``;
 
 export const Description = styled.Text`
   font-size: 14px;
-  color: #002966;
+  color: ${colors.primary};
   margin-bottom: 4px;
 `;
 export const NavigateButton = styled.TouchableOpacity`
@@ -118,7 +120,7 @@ export const NavigateButton = styled.TouchableOpacity`
   background-color: ${colors.primary};
   padding: 6px;
   border-radius: 4px;
-  margin: 0 16px;
+  margin: 0 2px;
 `;
 export const ButtonTitle = styled.Text`
   font-family: Roboto;

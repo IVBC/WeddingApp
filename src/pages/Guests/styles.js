@@ -7,9 +7,9 @@ export const WelcomeContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 8px 32px;
+  margin: 8px 12px;
   margin-top: 0px;
-  padding: 8px 0;
+  padding: 8px 8px;
   border-color: ${colors.border};
   border-top-width: 2px;
   border-bottom-width: 2px;

@@ -17,7 +17,7 @@ export const Content = styled.View`
   justify-content: center;
   flex: 1;
 `;
-export const IconTime = styled(Icon).attrs((props) => ({
+export const IconTime = styled(Icon).attrs(() => ({
   size: 24,
   color: colors.primary,
 }))`
@@ -27,9 +27,12 @@ export const IconTime = styled(Icon).attrs((props) => ({
 export const TextTitle = styled.Text`
   font-weight: bold;
   color: ${colors.primary};
+  font-size: 12px;
 `;
 export const TextTime = styled.Text`
   /* font-weight: bold; */
   color: ${colors.primary};
   /* letter-spacing: 0.0001px; */
+  flex: 1;
+  text-align: center;
 `;

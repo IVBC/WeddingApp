@@ -4,16 +4,16 @@ import { RectButton } from 'react-native-gesture-handler';
 import colors from '~/styles/colors';
 
 export const List = styled.FlatList.attrs(() => ({
-  onEndReachedThreshold: 0.3,
+  // onEndReachedThreshold: 0.3,
   showsVerticalScrollIndicator: false,
-  removeClippedSubviews: true,
-  initialNumToRender: 10,
-  maxToRenderPerBatch: 100,
+  // removeClippedSubviews: true,
+  // initialNumToRender: 10,
+  // maxToRenderPerBatch: 100,
   contentContainerStyle: { flexGrow: 1 },
 }))``;
 
 export const Container = styled.View`
-  margin: 4px 16px;
+  margin: 0px 12px;
   flex: 1;
 /*
   border: 1px solid ${colors.border};
@@ -53,6 +53,7 @@ export const TitleText = styled.Text`
 
   color: ${colors.white};
   margin-left: 10px;
+  flex: 1;
 `;
 
 export const ButtonContainer = styled.View`
