@@ -33,6 +33,6 @@ export const TextTime = styled.Text`
   /* font-weight: bold; */
   color: ${colors.primary};
   /* letter-spacing: 0.0001px; */
-  flex: 1;
+  /* flex: 1; */
   text-align: center;
 `;

@@ -22,7 +22,7 @@ export default function createRouter(isSigned = false) {
         <Stack.Screen
           name="Dashboard"
           options={{ headerShown: false }}
-          component={MainTabRoutes}
+          component={MainTabReceptionRoutes}
         />
       )}
     </Stack.Navigator>

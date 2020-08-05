@@ -37,7 +37,7 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 16px;
+  padding: 32px 32px;
   padding-top: 20px;
   padding-bottom: 2px;
 `;
@@ -118,7 +118,7 @@ export const NavigateButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   background-color: ${colors.primary};
-  padding: 6px;
+  padding: 8px;
   border-radius: 4px;
   margin: 0 2px;
 `;
