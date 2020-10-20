@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   WebView,
@@ -6,6 +6,7 @@ import {
   Linking,
   Dimensions,
   StyleSheet,
+  Vibration,
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -13,6 +14,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { Container } from './styles';
 import Background from '~/components/Background';
 import Check from './Check';
+import api from '~/services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,28 +40,48 @@ const styles = StyleSheet.create({
 });
 
 const Scanner = () => {
-  const [success, setSuccess] = useState(false);
-  const [code, setCode] = useState(null);
+  const [family, setFamily] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [scannerRef, setScannerRef] = useState(null);
 
-  const handleButton = () => {
-    setSuccess(false);
-    scannerRef.reactivate();
-  };
+  const reactivateScanner = useCallback(() => {
+    setFamily(null);
+    Vibration.vibrate();
+    // scannerRef.reactivate();
+  }, []);
 
-  const onSuccess = async (e) => {
-    setCode(e.data);
-  };
+  const onSuccess = useCallback(
+    async (e) => {
+      // console.log(e);
+      setLoading(true);
+      const code = e.data;
+
+      api
+        .get(`/families/${code}`)
+        .then((response) => {
+          setLoading(false);
+
+          setFamily(response.data);
+        })
+        .catch(() => {
+          setLoading(false);
+          reactivateScanner();
+        });
+    },
+    [reactivateScanner]
+  );
 
   return (
     <Background>
       <Container>
-        {!code ? (
+        {!family ? (
           <QRCodeScanner
             onRead={onSuccess}
             showMarker
             checkAndroid6Permissions
+            reactivate
+            reactivateTimeout={2000}
             ref={(elem) => {
               setScannerRef(elem);
             }}
@@ -71,7 +93,7 @@ const Scanner = () => {
             // }
           />
         ) : (
-          <Check />
+          <Check family={family} reactivateScanner={reactivateScanner} />
         )}
 
         {/* <ModalWebView

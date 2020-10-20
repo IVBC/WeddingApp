@@ -16,7 +16,9 @@ export const List = styled.FlatList.attrs(() => ({
   maxToRenderPerBatch: 100,
   // contentContainerStyle: { flexGrow: 1 },
 }))`
+  min-height: ${`${deviceHeight * 0.15}px`};
   max-height: ${`${deviceHeight * 0.4}px`};
+  margin-bottom: 8px;
 `;
 
 export const Container = styled.View`
@@ -28,7 +30,7 @@ export const Container = styled.View`
 
   /* background-color: ${colors.secondary}; */
 
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   padding: 1px;
 `;
 

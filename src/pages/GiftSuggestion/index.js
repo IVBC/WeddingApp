@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useCallback } from 'react';
+import { Linking, Alert } from 'react-native';
 
 import Background from '~/components/Background';
 import {
@@ -22,6 +22,19 @@ import {
 } from './styles';
 
 const GiftSuggestion = () => {
+  const handlePress = useCallback(async (url) => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, []);
+
   return (
     <Background>
       <TitleHeader>
@@ -29,12 +42,20 @@ const GiftSuggestion = () => {
       </TitleHeader>
       <Body>
         <SubTitle>Nossa lista de presentes está disponível nas lojas:</SubTitle>
-        <Button>
+        <Button
+          onPress={() =>
+            handlePress('http://listadepresente.de/denisepardoeisaquevilson')
+          }
+        >
           <BackgroundButton>
             <LogoBemol />
           </BackgroundButton>
         </Button>
-        <Button>
+        <Button
+          onPress={() =>
+            handlePress('https://lista.camicado.com.br/deniseeisaquee')
+          }
+        >
           <BackgroundButton>
             <LogoCamicado />
           </BackgroundButton>

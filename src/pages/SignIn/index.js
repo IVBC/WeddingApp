@@ -7,6 +7,7 @@ import {
   Platform,
   Keyboard,
   SafeAreaView,
+  Animated,
 } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -32,19 +33,29 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
 
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [keyBoardShow, setKeyBoardShow] = useState(false);
+
+  const [opacity, _] = useState(new Animated.Value(0));
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        setKeyboardVisible(true); // or some other action
+        Animated.timing(opacity, {
+          toValue: 300,
+          duration: 1000,
+        }).start();
+        setKeyBoardShow(true); // or some other action
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       () => {
-        setKeyboardVisible(false); // or some other action
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 1000,
+        }).start();
+        setKeyBoardShow(false); // or some other action
       }
     );
 
@@ -52,7 +63,7 @@ export default function SignIn() {
       keyboardDidHideListener.remove();
       keyboardDidShowListener.remove();
     };
-  }, []);
+  }, [opacity]);
 
   const handleSubmit = useCallback(
     ({ id }) => {
@@ -64,7 +75,11 @@ export default function SignIn() {
   return (
     <Container>
       <SafeAreaView style={{ flex: 1 }}>
-        <Header>
+        <Header
+          style={{
+            transform: [{ translateY: Animated.multiply(opacity, -1) }],
+          }}
+        >
           <LogoFlor />
         </Header>
         <KeyboardAvoidingView
@@ -107,7 +122,8 @@ export default function SignIn() {
             {/* </Content> */}
           </ScrollView>
         </KeyboardAvoidingView>
-        <Footer>
+
+        <Footer style={{ transform: [{ translateY: opacity }] }}>
           <LogoFlor />
         </Footer>
       </SafeAreaView>

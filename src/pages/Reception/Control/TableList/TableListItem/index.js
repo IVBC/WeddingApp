@@ -1,4 +1,5 @@
 import React, { memo, useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 
@@ -20,11 +21,13 @@ import {
   Icon,
 } from './styles';
 
-const TableListItem = () => {
+const TableListItem = ({
+  data: { numberTable, absents, countChilds, presents, total },
+}) => {
   const { navigate } = useNavigation();
 
   const navigateToDetail = useCallback(
-    () => navigate('DetailControl', { oi: 'table' }),
+    () => navigate('DetailControl', { numberTable }),
     [navigate]
   );
   return (
@@ -33,33 +36,49 @@ const TableListItem = () => {
         <TableContainer>
           <TableIndicator>
             <TableName>MESA</TableName>
-            <NumberTable>05</NumberTable>
+            <NumberTable>
+              {numberTable < 10 ? `0${numberTable}` : numberTable}
+            </NumberTable>
           </TableIndicator>
         </TableContainer>
         <DetailContainer>
           <Row>
             <DataContainer>
               <DataText>Total</DataText>
-              <DataValue>11</DataValue>
+              <DataValue> {total < 10 ? `0${total}` : total}</DataValue>
             </DataContainer>
             <DataContainer>
               <DataText>Presentes</DataText>
-              <DataValue color="#37930C">11</DataValue>
+              <DataValue color="#37930C">
+                {presents < 10 ? `0${presents}` : presents}
+              </DataValue>
             </DataContainer>
             <DataContainer>
               <DataText>Ausentes</DataText>
-              <DataValue color="#E00202">11</DataValue>
+              <DataValue color="#E00202">
+                {absents < 10 ? `0${absents}` : absents}
+              </DataValue>
             </DataContainer>
           </Row>
           <ChildrenContainer>
             <ChildrenText>Total de crianças:</ChildrenText>
-            <ChildrenValue>2</ChildrenValue>
+            <ChildrenValue>{countChilds}</ChildrenValue>
           </ChildrenContainer>
         </DetailContainer>
       </Info>
       <Icon name="chevron-right" />
     </Container>
   );
+};
+
+TableListItem.propTypes = {
+  data: PropTypes.shape({
+    numberTable: PropTypes.number,
+    absents: PropTypes.number,
+    countChilds: PropTypes.number,
+    presents: PropTypes.number,
+    total: PropTypes.number,
+  }).isRequired,
 };
 
 export default TableListItem;

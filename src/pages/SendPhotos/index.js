@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Alert } from 'react-native';
-import {
-  useRoute,
-  useNavigation,
-  useFocusEffect,
-} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
 
 import api from '~/services/api';
@@ -27,6 +24,9 @@ import {
 export default function ConfirmDelivery() {
   const navigation = useNavigation();
   const [fileSource, setFileSource] = useState(null);
+  const [sendDisabled, setSendDisabled] = useState(false);
+
+  const family = useSelector((state) => state.user.profile);
   // const {
   //   params: { deliveryId },
   // } = useRoute();
@@ -62,7 +62,6 @@ export default function ConfirmDelivery() {
 
         setFileSource(source);
         setImageUri(source.uri);
-
         // ImageResizer.createResizedImage(response.uri, 500, 500, 'JPEG', 70)
         //   .then(({ uri }) => {
         //     const prefix = new Date().getTime();
@@ -97,6 +96,8 @@ export default function ConfirmDelivery() {
       // return () => unsubscribe();
       // Do something manually
       // ...
+      setImageUri(null);
+      setSendDisabled(false);
 
       openPicker();
     });
@@ -115,25 +116,22 @@ export default function ConfirmDelivery() {
         dataFile.append('file', {
           type: 'image/jpg',
           uri: imageUri,
-          name: 'signature.jpg',
+          name: fileSource.fileName,
         });
 
-        const {
-          data: { id: signature_id },
-        } = await api.post('files', dataFile);
+        await api.post(`files/${family.code}/photo`, dataFile);
 
-        await api.put(`/delivery/${loading}/deliver`, {
-          signature_id,
-        });
+        setSendDisabled(true);
 
         Alert.alert(
-          'Produto entregue!',
-          'A confirmação da entrega do produto foi realizada com sucesso.'
+          'Ae! Nós agradecemos!',
+          'O envio da imagem foi realizado com sucesso e logo ela será exibida =)'
         );
-        navigation.popToTop();
+        // navigation.popToTop();
       } catch (err) {
+        setSendDisabled(false);
         Alert.alert(
-          'Não foi possível confirmar a entrega!',
+          'Não foi possível enviar a imagem para o Datashow!',
           'Falha na comunicação com o servidor, verifique sua conexão com a internet.'
         );
       } finally {
@@ -142,12 +140,12 @@ export default function ConfirmDelivery() {
     }
   }
 
-  const handleTakePicture = useCallback(async () => {
-    const options = { quality: 0.5, base64: true };
-    const data = await cameraRef.current.takePictureAsync(options);
+  // const handleTakePicture = useCallback(async () => {
+  //   const options = { quality: 0.5, base64: true };
+  //   const data = await cameraRef.current.takePictureAsync(options);
 
-    await setImageUri(data.uri);
-  }, []);
+  //   await setImageUri(data.uri);
+  // }, []);
 
   return (
     <Background>
@@ -178,6 +176,7 @@ export default function ConfirmDelivery() {
                 onPress={() => {
                   setImageUri(null);
                   openPicker();
+                  setSendDisabled(false);
                 }}
               >
                 <ButtonCameraIcon name="close" />
@@ -185,7 +184,7 @@ export default function ConfirmDelivery() {
             </PhotoContainer>
           )}
           <SubmitButton
-            disabled={!imageUri}
+            disabled={!imageUri || sendDisabled}
             onPress={handleUpload}
             loading={loading}
           >

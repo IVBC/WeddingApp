@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
 import colors from '~/styles/colors';
 
 export const Container = styled.View`
-  margin: 4px 0px;
+  margin: 0px 0px 8px;
   /* height: 200px; */
 
   /* border: 1px solid ${colors.border}; */
@@ -33,8 +33,8 @@ export const Guest = styled.View`
   align-items: center;
 `;
 
-export const TitleIcon = styled(Icon).attrs(() => ({
-  name: 'person',
+export const TitleIcon = styled(Icon).attrs((props) => ({
+  name: props.isChild ? 'account-child' : 'account',
   color: colors.primary,
   size: 24,
 }))``;

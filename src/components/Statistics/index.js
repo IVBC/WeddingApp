@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import {
   Container,
@@ -11,29 +11,42 @@ import {
   DataValueChildren,
 } from './styles';
 
-const Statistics = () => {
+const Statistics = ({ data: { total, presents, countChilds, absents } }) => {
   return (
     <Container>
       <Row>
         <Data>
           <DataText>Total</DataText>
-          <DataValue>167</DataValue>
+          <DataValue> {total < 10 ? `0${total}` : total}</DataValue>
         </Data>
         <Data color="#37930C">
           <DataText>Presentes</DataText>
-          <DataValue color="#37930C">135</DataValue>
+          <DataValue color="#37930C">
+            {presents < 10 ? `0${presents}` : presents}
+          </DataValue>
         </Data>
         <Data color="#E00202">
           <DataText>Ausentes</DataText>
-          <DataValue color="#E00202">32</DataValue>
+          <DataValue color="#E00202">
+            {absents < 10 ? `0${absents}` : absents}
+          </DataValue>
         </Data>
       </Row>
       <DataChildren>
         <DataText>Total de crianças:</DataText>
-        <DataValueChildren> 7</DataValueChildren>
+        <DataValueChildren> {countChilds}</DataValueChildren>
       </DataChildren>
     </Container>
   );
 };
 
 export default Statistics;
+
+Statistics.propTypes = {
+  data: PropTypes.shape({
+    total: PropTypes.number,
+    presents: PropTypes.number,
+    countChilds: PropTypes.number,
+    absents: PropTypes.number,
+  }).isRequired,
+};

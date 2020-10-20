@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-import { Button, Text, StatusBar, View } from 'react-native';
+import React from 'react';
+import { StatusBar, View } from 'react-native';
 import Modal from 'react-native-modal';
+import PropTypes from 'prop-types';
+
 import QRCode from 'react-native-qrcode-svg';
+
+import { useSelector } from 'react-redux';
 
 import {
   ContainerModal,
@@ -15,7 +19,7 @@ import {
 import colors from '~/styles/colors';
 
 function ModalQrCode({ isOpen, close }) {
-  const [valueForQRCode, setValueForQRCode] = useState('{"id": "123344"}');
+  const { code } = useSelector((state) => state.auth);
 
   return (
     <Modal
@@ -42,7 +46,7 @@ function ModalQrCode({ isOpen, close }) {
           </Header>
           <QRCode
             // QR code value
-            value={valueForQRCode}
+            value={code}
             // size of QR Code
             size={250}
             // Color of the QR Code (Optional)
@@ -73,3 +77,8 @@ function ModalQrCode({ isOpen, close }) {
 }
 
 export default ModalQrCode;
+
+ModalQrCode.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+};

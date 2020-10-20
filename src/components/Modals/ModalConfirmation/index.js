@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Text,
-  StatusBar,
-  View,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import PropTypes from 'prop-types';
+import { StatusBar, View } from 'react-native';
 import Modal from 'react-native-modal';
 import GuestsList from './GuestsList';
 
@@ -21,8 +15,12 @@ import {
   ButtonText,
   ButtonConfirmContainer,
 } from './styles';
+import api from '~/services/api';
+import Loading from '~/components/Loading';
+import colors from '~/styles/colors';
 
 function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
+  const [loading, setLoading] = useState(false);
   const [guests, setGuests] = useState(_guests);
 
   const updateGuests = (gts) => {
@@ -30,10 +28,18 @@ function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
   };
 
   const handleConfirmGuests = () => {
-    // solicitacao da api aqui com o loading
-    console.log('confimaandoo');
-    confirmGuests(guests);
-    close();
+    setLoading(true);
+    api
+      .put('guests/confirmation', guests)
+      .then(() => {
+        setLoading(false);
+
+        confirmGuests(guests);
+        close();
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
   return (
     <Modal isVisible={isOpen}>
@@ -52,9 +58,15 @@ function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
           <GuestsList guests={guests} updateGuests={updateGuests} />
 
           <ButtonConfirmContainer>
-            <ButtonConfirm onPress={() => handleConfirmGuests()}>
-              <ButtonText>Confirmar</ButtonText>
-              {/* <Icon name="check" /> */}
+            <ButtonConfirm
+              disabled={loading}
+              onPress={() => handleConfirmGuests()}
+            >
+              {loading ? (
+                <Loading background={colors.secondary} />
+              ) : (
+                <ButtonText>Confirmar</ButtonText>
+              )}
             </ButtonConfirm>
           </ButtonConfirmContainer>
         </ContainerModal>
@@ -64,3 +76,16 @@ function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
 }
 
 export default ModalConfirmation;
+
+ModalConfirmation.propTypes = {
+  guests: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      isConfirmed: PropTypes.bool,
+    })
+  ).isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+  confirmGuests: PropTypes.func.isRequired,
+};

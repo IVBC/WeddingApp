@@ -19,4 +19,5 @@ export const Text = styled.Text`
   color: ${colors.grey};
   font-weight: bold;
   font-size: 18px;
+  text-align: center;
 `;

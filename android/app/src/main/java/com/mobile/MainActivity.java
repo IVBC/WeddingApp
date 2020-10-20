@@ -1,4 +1,4 @@
-package com.mobile;
+package com.deniseeisaque;
 
 import com.facebook.react.ReactActivity;
 

@@ -15,28 +15,25 @@ export default function PressButton({ children, onLongPress }) {
   const [buttonHeight, setButtonHeight] = useState(0);
   const [error, setError] = useState(false);
 
-  let _value = 0;
-
   useEffect(() => {
-    _value = 0;
-    pressAction.addListener((v) => {
-      _value = v.value;
+    pressAction.addListener(({ value }) => {
+      if (value === 1) {
+        onLongPress();
+      }
     });
-  }, []);
 
-  const animationActionComplete = useCallback(() => {
-    if (_value === 1) {
-      onLongPress();
-    }
-  }, [_value]);
+    return () => {
+      pressAction.removeAllListeners();
+    };
+  }, [pressAction, onLongPress]);
 
   const handlePressIn = useCallback(() => {
     setError(true);
     Animated.timing(pressAction, {
       duration: ACTION_TIMER,
       toValue: 1,
-    }).start(animationActionComplete);
-  }, [animationActionComplete, pressAction]);
+    }).start();
+  }, [pressAction]);
 
   const handlePressOut = useCallback(() => {
     Animated.timing(pressAction, {

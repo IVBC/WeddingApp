@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -72,5 +72,29 @@ export const List = styled.FlatList.attrs(() => ({
   // maxToRenderPerBatch: 100,
   contentContainerStyle: { flexGrow: 1 },
 }))`
-  margin-top: 8px;
+  /* margin-top: 8px; */
+`;
+
+export const FilterContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+export const FilterOption = styled.Text`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  color: #9a9a9a;
+  /* identical to box height */
+
+  text-align: center;
+  padding: 12px 10px 2px;
+
+  ${({ active }) =>
+    active &&
+    css`
+      border-bottom-color: ${colors.primary};
+      border-bottom-width: 2px;
+      color: ${colors.primary};
+    `}
 `;

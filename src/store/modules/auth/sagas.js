@@ -8,32 +8,30 @@ import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
-    const { id } = payload;
+    const { code } = payload;
 
-    if (id === '') {
-      Alert.alert('Falha na autenticação', 'Informe o ID.');
+    if (code === '') {
+      Alert.alert('Falha na autenticação', 'Informe a senha do seu convite');
       yield put(signFailure());
       return;
     }
-    yield put(signInSuccess('123', { name: 'isaque' }));
-    // const response = yield call(api.get, `/deliverers/${id}`);
+    // yield put(signInSuccess('123', { name: 'isaque' }));
+    const response = yield call(api.get, `/families/${code}`);
 
-    // const { data: user } = response;
+    const { data: user } = response;
 
-    // yield put(signInSuccess(id, user));
+    yield put(signInSuccess(code, user));
   } catch (err) {
     if (err.response) {
       const codeErro = err.response.status;
       if (codeErro === 401) {
-        Alert.alert('Sentimos muito :(', 'Vocế está demitido.');
+        Alert.alert('Sentimos muito :(', 'Você não é mais convidado');
       } else {
-        Alert.alert('Falha na autenticação', 'O ID é inválido.');
+        Alert.alert('Falha na autenticação', 'A senha de convite é inválida.');
       }
     } else {
-      Alert.alert(
-        'Falha na autenticação',
-        'Falha na comunicação com o servidor'
-      );
+      console.log(err);
+      Alert.alert('Falha na autenticação', JSON.stringify(err));
     }
     yield put(signFailure());
   }

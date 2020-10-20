@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import colors from '~/styles/colors';
 
@@ -33,8 +32,8 @@ export const Guest = styled.View`
   align-items: center;
 `;
 
-export const TitleIcon = styled(Icon).attrs(() => ({
-  name: 'person',
+export const TitleIcon = styled(Icon).attrs((props) => ({
+  name: props.isChild ? 'account-child' : 'account',
   color: colors.primary,
   size: 24,
 }))``;

@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { persistReducer } from 'redux-persist';
 
 const INITIAL_STATE = {
-  id: null,
+  code: null,
   signed: false,
   loading: false,
 };
@@ -16,7 +16,7 @@ const auth = (state = INITIAL_STATE, action) => {
         break;
       }
       case '@auth/SIGN_IN_SUCCESS': {
-        draft.id = action.payload.id;
+        draft.code = action.payload.code;
         draft.signed = true;
         draft.loading = false;
         break;
@@ -26,7 +26,7 @@ const auth = (state = INITIAL_STATE, action) => {
         break;
       }
       case '@auth/SIGN_OUT': {
-        draft.id = null;
+        draft.code = null;
         draft.signed = false;
         break;
       }

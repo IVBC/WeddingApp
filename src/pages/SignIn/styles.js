@@ -1,6 +1,6 @@
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import { Dimensions, Animated } from 'react-native';
 
 import { Form as Unform } from '@unform/mobile';
 import logo from '../../assets/logo.png';
@@ -22,11 +22,13 @@ export const Container = styled(LinearGradient).attrs({
 
 export const Content = styled.ScrollView``;
 
-export const Header = styled.View`
+export const Header = styled(Animated.View)`
   /* padding: 16px; */
   /* margin-top: 16px; */
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 0;
 `;
 
 export const Body = styled.View`
@@ -36,11 +38,13 @@ export const Body = styled.View`
   padding: 0 30px;
 `;
 
-export const Footer = styled.View`
-  padding: 16px;
+export const Footer = styled(Animated.View)`
+  padding: 0 0 12px;
   justify-content: center;
   align-items: center;
   transform: rotate(180deg);
+  position: absolute;
+  bottom: 0;
 `;
 
 // styled.View`

@@ -24,45 +24,17 @@ import {
   ButtonText,
   ButtonContainer,
 } from './styles';
+import Legend from '~/components/Legend';
 
-function ListDelivery() {
+function GuestsList({ data }) {
+  const [guests, setGuests] = useState(data);
   const { id } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const [guests, setGuests] = useState([
-    {
-      id: 1,
-      name: 'Andreia Pardo Lessa',
-      isConfirmed: true,
-    },
-    {
-      id: 2,
-      name: 'Flávio Lessa Pardo',
-      isConfirmed: false,
-    },
-    {
-      id: 3,
-      name: 'Wendrio Pardo Silva',
-      isConfirmed: false,
-    },
-    {
-      id: 4,
-      name: 'Flávia Hernanes Ferreira',
-      isConfirmed: false,
-    },
-    {
-      id: 5,
-      name: 'Andrei Pardo Lessa',
-      isConfirmed: false,
-    },
-  ]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
 
   // Selection for guest type
-  const [typeDelivered, setTypeDelivered] = useState(false);
 
   const [isModalVisibleConfirmation, setModalVisibleConfirmation] = useState(
     false
@@ -70,53 +42,6 @@ function ListDelivery() {
 
   const toggleModalConfirmation = () => {
     setModalVisibleConfirmation(!isModalVisibleConfirmation);
-  };
-
-  const loadGuests = async () => {
-    if (loading) {
-      return;
-    }
-
-    if (total > 0 && guests.length === total) {
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const response = await api.get(`/deliverer/${id}/guests`, {
-        params: { page, filter: typeDelivered ? 'DELIVERED' : 'OPEN' },
-      });
-
-      const {
-        data: { guests: _guests, count },
-      } = response;
-
-      setGuests((prevGuests) => [...prevGuests, ..._guests]);
-
-      setTotal(count);
-      setPage((prevPage) => prevPage + 1);
-    } catch (err) {
-      if (err.response) {
-        const codeErro = err.response.status;
-        if (codeErro === 401) {
-          Alert.alert('Sentimos muito :(', 'Vocế está demitido.');
-          dispatch(signOut());
-        } else {
-          Alert.alert(
-            'Não foi possível carregar suas entregas !',
-            'Entregador não encontrado'
-          );
-        }
-      } else {
-        Alert.alert(
-          'Não foi possível carregar suas entregas !',
-          'Falha na comuniçao com o servidor. Por favor, tente novamente...'
-        );
-      }
-    } finally {
-      setLoading(false);
-    }
   };
 
   // useEffect(() => {
@@ -142,19 +67,10 @@ function ListDelivery() {
 
   const renderEmpty = useCallback(() => {
     if (!loading) {
-      let contentEmptyListMessage;
-
-      if (true) {
-        contentEmptyListMessage = {
-          iconName: 'truck-check',
-          message: 'Não há registros de entregas.',
-        };
-      } else {
-        contentEmptyListMessage = {
-          iconName: 'truck-delivery',
-          message: 'Não há entregas pendentes.',
-        };
-      }
+      const contentEmptyListMessage = {
+        iconName: 'account-multiple',
+        message: 'Não há convidados para esta familia.',
+      };
 
       return (
         <EmptyListMessage
@@ -164,7 +80,7 @@ function ListDelivery() {
       );
     }
     return null;
-  }, [loading, typeDelivered]);
+  }, [loading]);
 
   const confirmedGuests = (_guests) => {
     setGuests(_guests);
@@ -199,9 +115,10 @@ function ListDelivery() {
           ListEmptyComponent={renderEmpty}
           renderItem={({ item: guest }) => <ListItem guest={guest} />}
         />
+        <Legend disabledIsPresent />
       </Container>
     </>
   );
 }
 
-export default memo(ListDelivery);
+export default memo(GuestsList);

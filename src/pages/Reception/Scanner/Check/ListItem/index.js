@@ -1,9 +1,5 @@
-import React, { memo, useMemo, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigation } from '@react-navigation/native';
-import { format, parseISO } from 'date-fns';
-
-import Progress from '~/components/ProgressSteps';
 
 import {
   Container,
@@ -15,8 +11,6 @@ import {
 } from './styles';
 
 const ListItem = ({ guest, toogleConfirmGuest }) => {
-  const { navigate } = useNavigation();
-
   // const navigateToDetail = useCallback(() => navigate('Guests', { guest }), [
   //   navigate,
   //   guest,
@@ -30,13 +24,19 @@ const ListItem = ({ guest, toogleConfirmGuest }) => {
     <Container onPress={() => toogleConfirmGuest(guest.id)}>
       <Content>
         <Guest>
-          <TitleIcon />
+          <TitleIcon isChild={guest.isChild} />
           <TitleText>{guest.name}</TitleText>
         </Guest>
-        {guest.isConfirmed ? (
-          <CheckIcon name="check" color="#219653" />
+        {guest.isPresent ? (
+          <CheckIcon name="checkbox-marked-circle" color="#219653" />
         ) : (
-          <CheckIcon name="close" color="#ff0000" />
+          <>
+            {guest.isConfirmed ? (
+              <CheckIcon name="check" color="#219653" />
+            ) : (
+              <CheckIcon name="close" color="#ff0000" />
+            )}
+          </>
         )}
         {/* <Progress status={guest.status} /> */}
       </Content>
@@ -49,8 +49,10 @@ ListItem.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string,
     isConfirmed: PropTypes.bool,
+    isPresent: PropTypes.bool,
+    isChild: PropTypes.bool,
   }).isRequired,
   toogleConfirmGuest: PropTypes.func.isRequired,
 };
 
-export default memo(ListItem);
+export default ListItem;

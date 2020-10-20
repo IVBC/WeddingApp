@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import colors from '~/styles/colors';
 
 export const Activity = styled.ActivityIndicator.attrs((props) => ({
-  color: props.background ? props.background : colors.primary,
+  color: props.background ? props.background : colors.red,
 }))``;
 
 export const Container = styled.View`

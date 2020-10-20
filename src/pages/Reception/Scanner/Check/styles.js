@@ -59,7 +59,7 @@ export const PasswordValue = styled.Text`
   font-weight: bold;
   font-size: 18px;
   /* line-height: 26px; */
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 
   color: #ffffff;
   /* flex: 1; */

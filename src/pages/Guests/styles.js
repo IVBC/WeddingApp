@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import colors from '~/styles/colors';
@@ -74,7 +74,7 @@ export const Description = styled.Text`
   color: #002966;
 `;
 
-export const FloatingButton = styled.TouchableOpacity`
+export const FloatingButtonRight = styled.TouchableOpacity`
   width: 60px;
   height: 60px;
   border-radius: 30px;
@@ -91,8 +91,24 @@ export const FloatingButton = styled.TouchableOpacity`
 `;
 
 export const IconFloatingButton = styled(Icon).attrs((props) => ({
-  size: 48,
-  color: colors.primary,
+  size: 26,
+  color: props.color ? props.color : colors.primary,
 }))`
-  margin-top: 5px;
+  margin-left: ${({ marginLeft }) => (marginLeft ? `${marginLeft}px` : `0px`)};
+`;
+
+export const FloatingButtonLeft = styled.TouchableOpacity`
+  width: 60px;
+  height: 60px;
+  /* border-radius: 30px;
+  border-width: 1px;
+  border-color: ${colors.primary};
+
+  background-color: rgba(255, 255, 255, 1); */
+  /* box-shadow: 0px 0px 4px rgba(3, 3, 3, 0.25); */
+  position: absolute;
+  left: 24px;
+  bottom: 8px;
+  align-items: center;
+  justify-content: center;
 `;

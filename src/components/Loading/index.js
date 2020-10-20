@@ -5,8 +5,8 @@ import { Container, Activity } from './styles';
 
 export default function Loading({ size, background, padding }) {
   return (
-    <Container background={background} padding={padding}>
-      <Activity size={size} />
+    <Container padding={padding}>
+      <Activity background={background} size={size} />
     </Container>
   );
 }

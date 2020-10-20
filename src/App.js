@@ -14,6 +14,7 @@ export default function App() {
   }
   //
   const signed = useSelector((state) => state.auth.signed);
+  const user = useSelector((state) => state.user);
 
-  return createRouter(signed);
+  return createRouter(signed, user);
 }
