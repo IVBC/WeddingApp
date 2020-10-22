@@ -16,7 +16,7 @@ export function* signIn({ payload }) {
       return;
     }
     // yield put(signInSuccess('123', { name: 'isaque' }));
-    const response = yield call(api.get, `/families/${code}`);
+    const response = yield call(api.get, `families/${code}`);
 
     const { data: user } = response;
 

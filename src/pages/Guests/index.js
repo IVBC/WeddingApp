@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { FloatingAction } from 'react-native-floating-action';
-import api from '~/services/api';
 
 import {
   WelcomeContainer,
@@ -12,11 +11,7 @@ import {
   TableIndicator,
   TableName,
   NumberTable,
-  Card,
-  Description,
-  FloatingButtonRight,
   IconFloatingButton,
-  FloatingButtonLeft,
 } from './styles';
 
 import colors from '~/styles/colors';
@@ -74,21 +69,6 @@ const Guests = () => {
     );
   }, [dispatch]);
 
-  // const loadDataFamily = useCallback(() => {
-  //   console.log('carregando dados');
-  //   const loadData = async () => {
-  //     api.get('/receptionist/statistic').then((response) => {
-  //       setFamily(response.data);
-  //     });
-  //   };
-
-  //   loadData();
-  // }, []);
-
-  // useEffect(() => {
-  //   loadDataFamily();
-  // }, [loadDataFamily]);
-
   return (
     <Background>
       <ModalQrCode
@@ -121,13 +101,6 @@ const Guests = () => {
       </Card> */}
 
       <GuestsList data={family?.guests} />
-
-      {/* <FloatingButtonLeft>
-        <IconFloatingButton name="logout" color={colors.red} />
-      </FloatingButtonLeft>
-      <FloatingButtonRight onPress={openQrCode}>
-        <IconFloatingButton name="qrcode" />
-      </FloatingButtonRight> */}
 
       <FloatingAction
         showBackground={false}

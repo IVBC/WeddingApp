@@ -23,8 +23,6 @@ export const Container = styled(LinearGradient).attrs({
 export const Content = styled.ScrollView``;
 
 export const Header = styled(Animated.View)`
-  /* padding: 16px; */
-  /* margin-top: 16px; */
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -47,31 +45,13 @@ export const Footer = styled(Animated.View)`
   bottom: 0;
 `;
 
-// styled.View`
-//   flex: 1;
-//   background: ${colors.primary};
-//   justify-content: center;
-//   align-items: center;
-//   padding: 0 30px;
-//   /* padding: 20px; */
-// `;
-
 export const LogoFlor = styled.Image.attrs(() => ({
   source: logoFlor,
 }))`
-  /* width: 100%; */
-  /* tint-color: ${colors.white}; */
-  /* margin-bottom: 42px; */
-  /* resize-mode: contain; */
-
   width: ${`${deviceWidth}px`};
   height: ${`${Math.round((deviceWidth * 118) / 343)}px`};
 
-  /* tint-color: ${colors.white}; */
-  /* margin-bottom: 42px; */
   resize-mode: contain;
-
-
 `;
 
 export const Logo = styled.Image.attrs(() => ({

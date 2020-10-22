@@ -114,12 +114,6 @@ export default function SignIn() {
                 </SubmitButton>
               </Form>
             </Body>
-            {/* {!isKeyboardVisible && (
-            <Footer>
-              <LogoFlor />
-            </Footer>
-          )} */}
-            {/* </Content> */}
           </ScrollView>
         </KeyboardAvoidingView>
 

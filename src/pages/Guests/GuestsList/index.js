@@ -1,17 +1,11 @@
-import React, { useEffect, useCallback, useState, useMemo, memo } from 'react';
+import React, { useCallback, useState, useMemo, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
-import { Alert } from 'react-native';
-import api from '~/services/api';
 
 import ListItem from './ListItem';
 import Loading from '~/components/Loading';
 import EmptyListMessage from '~/components/ListEmptyMessage';
 import ModalConfirmation from '~/components/Modals/ModalConfirmation';
-
-import colors from '~/styles/colors';
-
-import { signOut } from '~/store/modules/auth/actions';
 
 import {
   List,

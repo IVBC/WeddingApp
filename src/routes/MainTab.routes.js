@@ -8,20 +8,11 @@ import TabBar from '~/components/TabBar';
 import Guests from '~/pages/Guests';
 import Menu from '~/pages/Menu';
 import Location from '~/pages/Location';
-import DeliveriesRoutes from '~/routes/Deliveries.routes';
 import colors from '~/styles/colors';
 import GiftSuggestion from '~/pages/GiftSuggestion';
 import SendPhotos from '~/pages/SendPhotos';
 
 const Tab = createBottomTabNavigator();
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
 export default function MainTab() {
   return (

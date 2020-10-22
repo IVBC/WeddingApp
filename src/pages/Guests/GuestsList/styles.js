@@ -15,14 +15,6 @@ export const List = styled.FlatList.attrs(() => ({
 export const Container = styled.View`
   margin: 0px 12px;
   flex: 1;
-/*
-  border: 1px solid ${colors.border};
-  border-radius: 4px; */
-
-  /* background-color: ${colors.secondary}; */
-
-  /* margin-bottom: 28px; */
-  /* padding: 1px; */
 `;
 
 export const Content = styled.View`

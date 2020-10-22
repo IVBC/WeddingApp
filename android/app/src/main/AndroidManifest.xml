@@ -2,6 +2,7 @@
   package="com.deniseeisaque">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!-- Required -->

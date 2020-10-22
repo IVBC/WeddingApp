@@ -2,8 +2,6 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { useSelector, useDispatch } from 'react-redux';
-
 import SignIn from '~/pages/SignIn';
 
 import MainTabRoutes from './MainTab.routes';

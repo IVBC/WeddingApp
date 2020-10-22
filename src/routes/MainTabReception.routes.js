@@ -6,19 +6,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBar from '~/components/TabBar';
 
 import colors from '~/styles/colors';
-import Control from '~/pages/Reception/Control';
 import Scanner from '~/pages/Reception/Scanner';
 import ControlRoutes from './Control.routes';
 
 const Tab = createBottomTabNavigator();
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
 export default function MainTabReception() {
   return (

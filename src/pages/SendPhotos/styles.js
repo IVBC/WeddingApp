@@ -18,10 +18,6 @@ export const Content = styled.View`
 `;
 
 export const CameraContainer = styled.View`
-  /* width: 100%;
-  height: 88%;
-  border-radius: 4px;
-  overflow: hidden; */
   flex: 1;
 
   justify-content: center;
@@ -29,8 +25,6 @@ export const CameraContainer = styled.View`
 `;
 
 export const PhotoContainer = styled.View`
-  /* width: 100%;
-  height: 88%; */
   flex: 1;
   border-radius: 4px;
 `;

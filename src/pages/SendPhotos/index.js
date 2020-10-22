@@ -27,9 +27,6 @@ export default function ConfirmDelivery() {
   const [sendDisabled, setSendDisabled] = useState(false);
 
   const family = useSelector((state) => state.user.profile);
-  // const {
-  //   params: { deliveryId },
-  // } = useRoute();
 
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
@@ -140,29 +137,12 @@ export default function ConfirmDelivery() {
     }
   }
 
-  // const handleTakePicture = useCallback(async () => {
-  //   const options = { quality: 0.5, base64: true };
-  //   const data = await cameraRef.current.takePictureAsync(options);
-
-  //   await setImageUri(data.uri);
-  // }, []);
-
   return (
     <Background>
       <Container>
         <Content>
           {!imageUri ? (
             <CameraContainer>
-              {/* <Camera
-                ref={cameraRef}
-                autoFocus={Camera.Constants.AutoFocus.on}
-                flashMode={Camera.Constants.FlashMode.off}
-                captureAudio={false}
-              />
-              <ButtonCamera onPress={handleTakePicture}>
-                <ButtonCameraIcon name="camera-alt" />
-              </ButtonCamera> */}
-
               <ButtonCameraIcon name="camera-alt" color="#6C89B2" size={42} />
               <Text>{loadingImage ? 'Carregando' : 'Aguardando'}...</Text>
             </CameraContainer>
