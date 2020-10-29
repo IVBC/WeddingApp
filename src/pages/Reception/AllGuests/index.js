@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useState, useEffect, memo } from 'react';
+import React, { useCallback, useState, useEffect, memo, useRef } from 'react';
 import { Alert } from 'react-native';
+import { debounce } from 'lodash';
+
 import Background from '~/components/Background';
 import api from '~/services/api';
 import GuestsList from './GuestsList';
@@ -20,11 +22,18 @@ import {
 } from './styles';
 
 const AllGuests = () => {
+  const searchRef = useRef(null);
   const [guests, setGuests] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
+  const count = 0;
+  const handleSearch = useCallback(() => {
+    setSearchValue(searchRef.current._lastNativeText);
+  }, []);
+
+  const handler = useCallback(debounce(handleSearch, 500), []);
 
   const updateGuests = (gts) => {
     setGuests(gts);
@@ -55,8 +64,9 @@ const AllGuests = () => {
   }, [searchValue]);
 
   useEffect(() => {
+    console.log('carregando dados');
     loadGuests();
-  }, []);
+  }, [searchValue]);
   return (
     <Background>
       <Container>
@@ -77,10 +87,18 @@ const AllGuests = () => {
         </HeaderContainer>
         <ContainerInput>
           <SearchIcon />
-          <SearchInput placeholder="Digite o nome" />
+          <SearchInput
+            ref={searchRef}
+            placeholder="Digite o nome"
+            onChangeText={handler}
+          />
         </ContainerInput>
 
-        <GuestsList guests={guests} updateGuests={updateGuests} />
+        <GuestsList
+          guests={guests}
+          isSearching={!!searchValue}
+          updateGuests={updateGuests}
+        />
       </Container>
     </Background>
   );

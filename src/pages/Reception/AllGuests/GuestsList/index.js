@@ -14,7 +14,7 @@ import {
 } from './styles';
 import Legend from '~/components/Legend';
 
-function GuestsList({ guests: _guests, updateGuests }) {
+function GuestsList({ guests: _guests, isSearching, updateGuests }) {
   const [guests, setGuests] = useState(_guests);
 
   // useEffect(() => {
@@ -25,10 +25,18 @@ function GuestsList({ guests: _guests, updateGuests }) {
     setGuests(_guests);
   }, [_guests]);
   const renderEmpty = useCallback(() => {
-    const contentEmptyListMessage = {
+    let contentEmptyListMessage = {
       iconName: 'account-group-outline',
       message: 'Não há convidados ainda',
     };
+
+    if (isSearching) {
+      contentEmptyListMessage = {
+        iconName: 'account-remove',
+        message: 'Sentimos Muito! \n Não o encontramos :(',
+        // message: 'Nome não encontrado!',
+      };
+    }
 
     return (
       <EmptyListMessage
@@ -36,7 +44,7 @@ function GuestsList({ guests: _guests, updateGuests }) {
         message={contentEmptyListMessage.message}
       />
     );
-  }, []);
+  }, [isSearching]);
 
   const confirmGuest = (id) => {
     const idxGuest = guests.findIndex((g) => g.id === id);
@@ -80,6 +88,7 @@ GuestsList.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       isConfirmed: PropTypes.bool,
+      isSearching: PropTypes.bool,
     })
   ).isRequired,
   updateGuests: PropTypes.func.isRequired,
