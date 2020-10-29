@@ -1,4 +1,4 @@
-import React, { useCallback, useState, memo } from 'react';
+import React, { useCallback, useState, memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import ListItem from './ListItem';
@@ -17,6 +17,13 @@ import Legend from '~/components/Legend';
 function GuestsList({ guests: _guests, updateGuests }) {
   const [guests, setGuests] = useState(_guests);
 
+  // useEffect(() => {
+  //   setGuests(_guests);
+  // }, [_guests]);
+
+  useMemo(() => {
+    setGuests(_guests);
+  }, [_guests]);
   const renderEmpty = useCallback(() => {
     const contentEmptyListMessage = {
       iconName: 'account-group-outline',

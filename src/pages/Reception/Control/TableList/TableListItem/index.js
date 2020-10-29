@@ -28,7 +28,7 @@ const TableListItem = ({
 
   const navigateToDetail = useCallback(
     () => navigate('DetailControl', { numberTable }),
-    [navigate]
+    [navigate, numberTable]
   );
   return (
     <Container onPress={navigateToDetail}>

@@ -50,7 +50,7 @@ const CountDown = () => {
 
   useEffect(() => {
     setInterval(() => {
-      getCountDown(new Date('2021-02-13'));
+      getCountDown(new Date('2021-02-13T23:00:00.000Z'));
     }, 1000);
   }, []);
 

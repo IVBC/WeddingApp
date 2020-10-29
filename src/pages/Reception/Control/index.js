@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useNavigation } from '@react-navigation/native';
 import TableList from './TableList';
 
 import {
@@ -48,6 +49,8 @@ const actions = [
 
 const Control = () => {
   const dispatch = useDispatch();
+
+  const { navigate } = useNavigation();
 
   const [statistic, setStatistic] = useState({});
 
@@ -104,7 +107,7 @@ const Control = () => {
         color={colors.primary}
         onPressItem={(name) => {
           if (name === 'bt_guestsList') {
-            console.log('Abrir lista');
+            navigate('AllGuests');
           }
           if (name === 'bt_signout') {
             handleLogOut();
