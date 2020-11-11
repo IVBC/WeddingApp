@@ -30,20 +30,25 @@ import {
 
 export default function SignIn() {
   const formRef = useRef(null);
+  const codeInputRef = useRef(null);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
 
   const [keyBoardShow, setKeyBoardShow] = useState(false);
 
   const [opacity, _] = useState(new Animated.Value(0));
+  const [shakeAnimation, __] = useState(new Animated.Value(0));
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        Animated.timing(opacity, {
+        Animated.spring(opacity, {
           toValue: 300,
-          duration: 1000,
+          // duration: 10000,
+          bounciness: 15,
+          // speed: 0.8,
         }).start();
         setKeyBoardShow(true); // or some other action
       }
@@ -51,9 +56,11 @@ export default function SignIn() {
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       () => {
-        Animated.timing(opacity, {
+        Animated.spring(opacity, {
           toValue: 0,
-          duration: 1000,
+          // duration: 10000,
+          bounciness: 15,
+          // speed: 0.8,
         }).start();
         setKeyBoardShow(false); // or some other action
       }
@@ -65,12 +72,47 @@ export default function SignIn() {
     };
   }, [opacity]);
 
+  const startShake = useCallback(() => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [shakeAnimation]);
+
   const handleSubmit = useCallback(
     ({ id }) => {
       dispatch(signInRequest(id));
     },
     [dispatch]
   );
+
+  useEffect(() => {
+    if (error) {
+      startShake();
+      // codeInputRef.current?.focus();
+      formRef.current.setFieldError('id', error);
+    } else {
+      formRef.current?.setErrors({});
+    }
+  }, [error, startShake]);
 
   return (
     <Container>
@@ -97,14 +139,20 @@ export default function SignIn() {
             <Body>
               <Logo />
               <Form ref={formRef} onSubmit={handleSubmit}>
-                <FormInput
-                  name="id"
-                  placeholder="Digite a senha do seu convite"
-                  returnKeyType="send"
-                  autoCorrect={false}
-                  autCapitalize="none"
-                  onSubmitEditing={handleSubmit}
-                />
+                <Animated.View
+                  style={{ transform: [{ translateX: shakeAnimation }] }}
+                >
+                  <FormInput
+                    ref={codeInputRef}
+                    name="id"
+                    placeholder="Senha do convite"
+                    returnKeyType="send"
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    onSubmitEditing={handleSubmit}
+                    icon="key-variant"
+                  />
+                </Animated.View>
 
                 <SubmitButton
                   loading={loading}

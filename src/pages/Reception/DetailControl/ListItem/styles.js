@@ -46,7 +46,7 @@ export const CheckIcon = styled(Icon).attrs(() => ({
 export const TitleText = styled.Text`
   font-family: 'Roboto-Regular';
   font-size: 15px;
-
+  flex: 1;
   color: ${colors.primary};
   margin-left: 10px;
 `;

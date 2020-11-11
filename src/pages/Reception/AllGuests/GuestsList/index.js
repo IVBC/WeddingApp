@@ -1,6 +1,7 @@
 import React, { useCallback, useState, memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-
+import { Text } from 'react-native';
+import Shimmer from '~/components/Shimmer';
 import ListItem from './ListItem';
 import EmptyListMessage from '~/components/ListEmptyMessage';
 
@@ -13,8 +14,9 @@ import {
   TitleText,
 } from './styles';
 import Legend from '~/components/Legend';
+import colors from '~/styles/colors';
 
-function GuestsList({ guests: _guests, isSearching, updateGuests }) {
+function GuestsList({ guests: _guests, isSearching, updateGuests, loading }) {
   const [guests, setGuests] = useState(_guests);
 
   // useEffect(() => {
@@ -25,6 +27,7 @@ function GuestsList({ guests: _guests, isSearching, updateGuests }) {
     setGuests(_guests);
   }, [_guests]);
   const renderEmpty = useCallback(() => {
+    if (loading) return null;
     let contentEmptyListMessage = {
       iconName: 'account-group-outline',
       message: 'Não há convidados ainda',
@@ -44,7 +47,7 @@ function GuestsList({ guests: _guests, isSearching, updateGuests }) {
         message={contentEmptyListMessage.message}
       />
     );
-  }, [isSearching]);
+  }, [isSearching, loading]);
 
   const confirmGuest = (id) => {
     const idxGuest = guests.findIndex((g) => g.id === id);
@@ -56,6 +59,19 @@ function GuestsList({ guests: _guests, isSearching, updateGuests }) {
     setGuests(updatedGuests);
     updateGuests(updatedGuests);
   };
+
+  const renderFooter = useCallback(() => {
+    if (!loading) return null;
+    return (
+      <Shimmer
+        visible={!loading}
+        shimmerColors={['#F2F5FF', '#CED4ED', '#F2F5FF']}
+        style={{ width: '100%', height: 8, borderRadius: 25, marginTop: 8 }}
+      >
+        <Text>Loading</Text>
+      </Shimmer>
+    );
+  }, [loading]);
 
   return (
     <>
@@ -70,9 +86,11 @@ function GuestsList({ guests: _guests, isSearching, updateGuests }) {
           data={guests}
           keyExtractor={(guest) => String(guest.id)}
           ListEmptyComponent={renderEmpty}
-          renderItem={({ item: guest }) => (
-            <ListItem guest={guest} toogleConfirmGuest={confirmGuest} />
-          )}
+          renderItem={({ item: guest }) => {
+            if (loading) return null;
+            return <ListItem guest={guest} toogleConfirmGuest={confirmGuest} />;
+          }}
+          ListFooterComponent={renderFooter}
         />
         <Legend disabledIsPresent />
       </Container>

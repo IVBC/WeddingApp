@@ -13,6 +13,9 @@ export default {
   white: '#fff',
   green: '#82BF18',
   red: '#E74040',
+
+  error: 'rgb(209, 9, 9)',
+  // error: '#c53030',
   grey: '#999',
   yellow: '#E7BA40',
 };

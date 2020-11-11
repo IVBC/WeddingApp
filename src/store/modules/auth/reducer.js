@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   code: null,
   signed: false,
   loading: false,
+  error: null,
 };
 
 const auth = (state = INITIAL_STATE, action) => {
@@ -13,6 +14,7 @@ const auth = (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case '@auth/SIGN_IN_REQUEST': {
         draft.loading = true;
+        draft.error = null;
         break;
       }
       case '@auth/SIGN_IN_SUCCESS': {
@@ -23,6 +25,7 @@ const auth = (state = INITIAL_STATE, action) => {
       }
       case '@auth/SIGN_FAILURE': {
         draft.loading = false;
+        draft.error = action.payload.error;
         break;
       }
       case '@auth/SIGN_OUT': {
@@ -42,7 +45,7 @@ const auth = (state = INITIAL_STATE, action) => {
 const persistConfig = {
   key: 'auth',
   storage: AsyncStorage,
-  blacklist: ['loading'],
+  blacklist: ['loading', 'error'],
 };
 
 export default persistReducer(persistConfig, auth);

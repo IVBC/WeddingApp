@@ -45,7 +45,7 @@ const TableListItem = ({
           <Row>
             <DataContainer>
               <DataText>Total</DataText>
-              <DataValue> {total < 10 ? `0${total}` : total}</DataValue>
+              <DataValue>{total < 10 ? `0${total}` : total}</DataValue>
             </DataContainer>
             <DataContainer>
               <DataText>Presentes</DataText>

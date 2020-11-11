@@ -29,11 +29,11 @@ export const Container = styled.SafeAreaView`
 
 export const BarIcon = styled(Icon).attrs((props) => ({
   size: 24,
-  color: props.isFocused ? '#2F80ED' : colors.grey,
+  color: props.isFocused ? colors.primary : colors.grey,
 }))``;
 
 export const Label = styled.Text`
-  color: ${(props) => (props.isFocused ? '#2F80ED' : colors.grey)};
+  color: ${(props) => (props.isFocused ? colors.primary : colors.grey)};
   font-size: 10px;
   flex: 1;
   /* font-weight: bold; */

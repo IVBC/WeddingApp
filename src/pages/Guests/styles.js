@@ -22,13 +22,14 @@ export const TitleWelcome = styled.Text`
   color: #6c89b2;
   font-family: 'Roboto';
   font-size: 24px;
-  line-height: 33px;
+  line-height: 28px;
+  margin-bottom: 4px;
 `;
 
 export const SubTitleWelcome = styled.Text`
   color: #6c89b2;
   font-family: 'Roboto';
-  font-size: 14px;
+  font-size: 12px;
   line-height: 18px;
 `;
 

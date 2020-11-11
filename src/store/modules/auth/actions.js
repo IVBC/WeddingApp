@@ -12,9 +12,10 @@ export function signInSuccess(code, user) {
   };
 }
 
-export function signFailure() {
+export function signFailure(error) {
   return {
     type: '@auth/SIGN_FAILURE',
+    payload: { error },
   };
 }
 

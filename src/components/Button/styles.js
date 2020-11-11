@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
+import { TouchableOpacity } from 'react-native';
 import colors from '~/styles/colors';
 
-export const Container = styled(RectButton)`
+export const Container = styled(TouchableOpacity)`
   height: 48px;
   background: ${({ background, disabled }) =>
     disabled ? colors.fontTransparent : background};

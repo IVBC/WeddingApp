@@ -52,12 +52,10 @@ const Guests = () => {
 
   const family = useSelector((state) => state.user.profile);
 
-  console.log(family);
-
   const handleLogOut = useCallback(() => {
     Alert.alert(
       'Atenção',
-      'Deseja realmente sair da aplicação?',
+      'Deseja realmente sair?',
       [
         {
           text: 'Não',

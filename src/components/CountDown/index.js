@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import * as dateFns from 'date-fns';
-
+import Shimmer from '~/components/Shimmer';
 import { Container, IconTime, TextTitle, TextTime, Content } from './styles';
 
 const CountDown = () => {
@@ -49,9 +49,13 @@ const CountDown = () => {
   };
 
   useEffect(() => {
-    setInterval(() => {
+    const count = setInterval(() => {
       getCountDown(new Date('2021-02-13T23:00:00.000Z'));
     }, 1000);
+
+    return () => {
+      clearInterval(count);
+    };
   }, []);
 
   return (
@@ -59,7 +63,17 @@ const CountDown = () => {
       <Content>
         <IconTime name="access-time" />
         <TextTitle>Restam: </TextTitle>
-        <TextTime>{countDown}</TextTime>
+        {countDown !== '' ? (
+          <TextTime>{countDown}</TextTime>
+        ) : (
+          <Shimmer
+            visible={false}
+            shimmerColors={['#F2F5FF', '#CED4ED', '#F2F5FF']}
+            style={{ marginLeft: 4, borderRadius: 25 }}
+          >
+            <Text>Loading</Text>
+          </Shimmer>
+        )}
       </Content>
     </Container>
   );

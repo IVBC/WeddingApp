@@ -53,13 +53,20 @@ const Control = () => {
   const { navigate } = useNavigation();
 
   const [statistic, setStatistic] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const loadStatistic = useCallback(() => {
-    console.log('carregando dados');
+    setLoading(true);
     const loadData = async () => {
-      api.get('/receptionist/statistic').then((response) => {
-        setStatistic(response.data);
-      });
+      api.get('/receptionist/statistic').then(
+        (response) => {
+          setStatistic(response.data);
+          setLoading(false);
+        },
+        () => {
+          setLoading(false);
+        }
+      );
     };
 
     loadData();
@@ -72,7 +79,7 @@ const Control = () => {
   const handleLogOut = useCallback(() => {
     Alert.alert(
       'Atenção',
-      'Deseja realmente sair da aplicação?',
+      'Deseja realmente sair?',
       [
         {
           text: 'Não',
@@ -98,8 +105,9 @@ const Control = () => {
             </RefreshButton>
           </ButtonContainer>
         </HeaderContainer>
-        <Statistics data={statistic} />
-        <TableList data={statistic?.statisticTables ?? []} />
+
+        <Statistics data={statistic} loading={loading} />
+        <TableList data={statistic?.statisticTables ?? []} loading={loading} />
       </Container>
       <FloatingAction
         showBackground={false}

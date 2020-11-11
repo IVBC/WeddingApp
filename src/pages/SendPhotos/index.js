@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
+import Toast from 'react-native-toast-message';
 
 import api from '~/services/api';
 
@@ -120,10 +121,13 @@ export default function ConfirmDelivery() {
 
         setSendDisabled(true);
 
-        Alert.alert(
-          'Ae! Nós agradecemos!',
-          'O envio da imagem foi realizado com sucesso e logo ela será exibida =)'
-        );
+        Toast.show({
+          position: 'bottom',
+          text1: 'Ae! Nós agradecemos! 🤩❤️',
+          text2:
+            'O envio da imagem foi realizado com sucesso e logo ela será exibida 😊',
+          visibilityTime: 10000,
+        });
         // navigation.popToTop();
       } catch (err) {
         setSendDisabled(false);
@@ -163,13 +167,15 @@ export default function ConfirmDelivery() {
               </ButtonCamera>
             </PhotoContainer>
           )}
-          <SubmitButton
-            disabled={!imageUri || sendDisabled}
-            onPress={handleUpload}
-            loading={loading}
-          >
-            Enviar ao Datashow
-          </SubmitButton>
+          {!sendDisabled && (
+            <SubmitButton
+              disabled={!imageUri || sendDisabled}
+              onPress={handleUpload}
+              loading={loading}
+            >
+              Enviar ao Datashow
+            </SubmitButton>
+          )}
         </Content>
       </Container>
     </Background>

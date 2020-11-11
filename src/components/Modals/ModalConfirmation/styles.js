@@ -20,6 +20,8 @@ export const Header = styled.View`
   margin-bottom: 8px;
 `;
 export const TitleHeader = styled.Text`
+  font-family: 'Roboto-Regular';
+
   color: ${colors.fontLight};
   font-size: 14px;
   margin-right: 8px;

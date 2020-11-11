@@ -27,6 +27,7 @@ export const CameraContainer = styled.View`
 export const PhotoContainer = styled.View`
   flex: 1;
   border-radius: 4px;
+  margin: 8px 0;
 `;
 
 export const Preview = styled.Image`
@@ -53,7 +54,7 @@ export const Text = styled.Text`
 export const SubmitButton = styled(Button).attrs(() => ({
   background: colors.primary,
 }))`
-  margin-top: 16px;
+  margin-top: 8px;
   margin-bottom: 16px;
 `;
 

@@ -8,6 +8,7 @@ export const Wrapper = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
   flex: 1;
+  border-radius: 10px;
 `;
 export const MenuContainer = styled(LinearGradient).attrs({
   // colors: ['#F2F5FF', 'rgba(242, 245, 255, 1)', 'transparent'],
@@ -32,7 +33,9 @@ export const MenuIcon = styled(Icon).attrs((props) => ({
 `;
 export const HeaderBackground = styled(LinearGradient).attrs({
   colors: ['#E1E6F8', '#F2F5FF'],
-})``;
+})`
+  border-radius: 10px;
+`;
 export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -40,6 +43,7 @@ export const Header = styled.View`
   padding: 32px 32px;
   padding-top: 20px;
   padding-bottom: 2px;
+  border-radius: 10px;
 `;
 
 export const TitleHeader = styled.Text`
@@ -59,7 +63,7 @@ export const DateIndicator = styled.View`
   height: 60px;
   border-radius: 30px;
   border-width: 1px;
-  border-color: ${colors.fontDark};
+  border-color: ${colors.fontTransparent};
 
   background-color: ${colors.primary};
 
@@ -71,7 +75,7 @@ export const Month = styled.Text`
   font-family: 'Roboto-Regular';
   font-size: 11px;
   color: ${colors.white};
-  line-height: 12px;
+  line-height: 11px;
   margin-top: 5px;
 `;
 export const Day = styled.Text`
@@ -80,13 +84,15 @@ export const Day = styled.Text`
   color: ${colors.white};
   flex: 1;
   line-height: 31px;
+  margin-right: 1px;
 `;
 export const Year = styled.Text`
   font-family: 'Roboto-Regular';
   color: ${colors.white};
   font-size: 11px;
-  line-height: 12px;
-  margin-bottom: 2px;
+  line-height: 11px;
+  margin-bottom: 3px;
+  margin-left: 3px;
 `;
 export const Body = styled.View`
   padding: 32px;

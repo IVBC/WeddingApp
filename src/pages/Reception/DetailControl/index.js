@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { Text } from 'react-native';
 import api from '~/services/api';
 
 import ListItem from './ListItem';
-
+import Shimmer from '~/components/Shimmer';
 import EmptyListMessage from '~/components/ListEmptyMessage';
 
 import {
@@ -33,14 +34,22 @@ const DetailControl = () => {
 
   const [statistic, setStatistic] = useState({});
   const [typePresent, setTypePresent] = useState(true);
-  console.log(statistic);
+
+  const [loading, setLoading] = useState(false);
 
   const loadStatistic = useCallback(() => {
-    console.log('carregando dados de detalhes');
     const loadData = async () => {
-      api.get(`/receptionist/statistic/${numberTable}`).then((response) => {
-        setStatistic(response.data);
-      });
+      setLoading(true);
+
+      api.get(`/receptionist/statistic/${numberTable}`).then(
+        (response) => {
+          setLoading(false);
+          setStatistic(response.data);
+        },
+        () => {
+          setLoading(false);
+        }
+      );
     };
 
     loadData();
@@ -57,6 +66,8 @@ const DetailControl = () => {
   }, [typePresent, statistic.guests]);
 
   const renderEmpty = useCallback(() => {
+    if (loading) return null;
+
     let contentEmptyListMessage = {
       iconName: 'account-clock',
       message: `Opa!\n A Mesa ${
@@ -79,7 +90,20 @@ const DetailControl = () => {
         message={contentEmptyListMessage.message}
       />
     );
-  }, [numberTable, typePresent]);
+  }, [numberTable, typePresent, loading]);
+
+  const renderFooter = useCallback(() => {
+    if (!loading) return null;
+    return (
+      <Shimmer
+        visible={!loading}
+        shimmerColors={['#F2F5FF', '#CED4ED', '#F2F5FF']}
+        style={{ width: '100%', height: 8, borderRadius: 25 }}
+      >
+        <Text>Loading</Text>
+      </Shimmer>
+    );
+  }, [loading]);
 
   return (
     <Background>
@@ -101,7 +125,7 @@ const DetailControl = () => {
             </HeaderTitle>
           </HeaderDetail>
         </HeaderContainer>
-        <Statistics data={statistic} />
+        <Statistics data={statistic} loading={loading} />
         <FilterGuest
           typePresent={typePresent}
           setTypePresent={setTypePresent}
@@ -113,6 +137,7 @@ const DetailControl = () => {
           // ListFooterComponent={moreLoading}
           ListEmptyComponent={renderEmpty}
           renderItem={({ item: guest }) => <ListItem guest={guest} />}
+          ListFooterComponent={renderFooter}
         />
         <Legend />
       </Container>

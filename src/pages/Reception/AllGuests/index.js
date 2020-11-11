@@ -28,7 +28,7 @@ const AllGuests = () => {
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
-  const count = 0;
+
   const handleSearch = useCallback(() => {
     setSearchValue(searchRef.current._lastNativeText);
   }, []);
@@ -51,8 +51,6 @@ const AllGuests = () => {
       .then((response) => {
         setLoading(false);
         setGuests(response.data.guests);
-
-        // console.log(response.data.guests);
       })
       .catch(() => {
         setLoading(false);
@@ -64,7 +62,6 @@ const AllGuests = () => {
   }, [searchValue]);
 
   useEffect(() => {
-    console.log('carregando dados');
     loadGuests();
   }, [searchValue]);
   return (
@@ -98,6 +95,7 @@ const AllGuests = () => {
           guests={guests}
           isSearching={!!searchValue}
           updateGuests={updateGuests}
+          loading={loading}
         />
       </Container>
     </Background>

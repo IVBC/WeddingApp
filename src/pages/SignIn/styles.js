@@ -61,7 +61,7 @@ export const Logo = styled.Image.attrs(() => ({
   height: ${`${Math.round(((deviceWidth - 60) * 46) / 155)}px`};
 
   /* tint-color: ${colors.white}; */
-  margin-bottom: 42px;
+  margin-bottom: 32px;
   resize-mode: contain;
 
 `;
@@ -75,7 +75,7 @@ export const Form = styled(Unform)`
 
 export const FormInput = styled(Input)`
   margin-bottom: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  /* border: 1px solid rgba(0, 0, 0, 0.14); */
 `;
 
 export const SubmitButton = styled(Button)`

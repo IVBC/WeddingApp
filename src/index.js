@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { StatusBar } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import './config/ReactotronConfig';
 
@@ -24,7 +25,9 @@ export default function Index() {
             backgroundColor={colors.primary}
             barStyle="light-content"
           />
+
           <App />
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </PersistGate>
       </Provider>
     </NavigationContainer>
