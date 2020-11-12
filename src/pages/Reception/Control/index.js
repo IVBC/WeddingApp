@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import TableList from './TableList';
 
 import {
@@ -48,6 +48,8 @@ const actions = [
 ];
 
 const Control = () => {
+  const isFocused = useIsFocused();
+
   const dispatch = useDispatch();
 
   const { navigate } = useNavigation();
@@ -73,8 +75,10 @@ const Control = () => {
   }, []);
 
   useEffect(() => {
-    loadStatistic();
-  }, [loadStatistic]);
+    if (isFocused) {
+      loadStatistic();
+    }
+  }, [isFocused, loadStatistic]);
 
   const handleLogOut = useCallback(() => {
     Alert.alert(
