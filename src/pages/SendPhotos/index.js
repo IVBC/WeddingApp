@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Alert } from 'react-native';
+import { Alert, PermissionsAndroid } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
@@ -22,7 +22,7 @@ import {
   ButtonCameraIcon,
 } from './styles';
 
-export default function ConfirmDelivery() {
+export default function SendPhotos() {
   const navigation = useNavigation();
   const [fileSource, setFileSource] = useState(null);
   const [sendDisabled, setSendDisabled] = useState(false);
@@ -34,7 +34,14 @@ export default function ConfirmDelivery() {
   const [imageUri, setImageUri] = useState(null);
   const cameraRef = useRef(null);
 
-  const openPicker = useCallback(() => {
+  const openPicker = useCallback(async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: 'We need your permission',
+      }
+    );
+
     const options = {
       title: 'Selecione a Image',
       takePhotoButtonTitle: 'Tirar Foto',
@@ -47,43 +54,56 @@ export default function ConfirmDelivery() {
       },
     };
 
-    ImagePicker.showImagePicker(options, (response) => {
-      setLoadingImage(true);
-      if (response.error) {
-        Alert.alert('Erro!', response.error);
-        navigation.goBack();
-        // eslint-disable-next-line no-empty
-      } else if (response.didCancel) {
-        navigation.goBack();
-      } else {
-        const source = response;
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log('You can use the camera');
 
-        setFileSource(source);
-        setImageUri(source.uri);
-        // ImageResizer.createResizedImage(response.uri, 500, 500, 'JPEG', 70)
-        //   .then(({ uri }) => {
-        //     const prefix = new Date().getTime();
+      ImagePicker.showImagePicker(options, (response) => {
+        setLoadingImage(true);
+        if (response.error) {
+          Alert.alert('Erro!', response.error);
+          navigation.goBack();
+          // eslint-disable-next-line no-empty
+        } else if (response.didCancel) {
+          navigation.goBack();
+        } else {
+          const source = response;
 
-        //     const img = {
-        //       uri,
-        //       type: response.type,
-        //       name: `${prefix}.jpg`,
-        //     };
+          setFileSource(source);
+          setImageUri(source.uri);
+          // ImageResizer.createResizedImage(response.uri, 500, 500, 'JPEG', 70)
+          //   .then(({ uri }) => {
+          //     const prefix = new Date().getTime();
 
-        //     const tempImage = image;
+          //     const img = {
+          //       uri,
+          //       type: response.type,
+          //       name: `${prefix}.jpg`,
+          //     };
 
-        //     tempImage[index] = img;
+          //     const tempImage = image;
 
-        //     setImage(tempImage);
-        //   })
-        //   .catch((err) => {
-        //     Alert.alert(
-        //       translate('imageError'),
-        //       translate('imageErrorDescription')
-        //     );
-        //   });
-      }
-    });
+          //     tempImage[index] = img;
+
+          //     setImage(tempImage);
+          //   })
+          //   .catch((err) => {
+          //     Alert.alert(
+          //       translate('imageError'),
+          //       translate('imageErrorDescription')
+          //     );
+          //   });
+        }
+      });
+    } else {
+      Toast.show({
+        position: 'bottom',
+        type: 'error',
+        text1: 'Ae! Nós agradecemos! 🤩❤️',
+        text2:
+          'O envio da imagem foi realizado com sucesso e logo ela será exibida 😊',
+        visibilityTime: 10000,
+      });
+    }
   }, [navigation]);
 
   useEffect(() => {
@@ -131,10 +151,12 @@ export default function ConfirmDelivery() {
         // navigation.popToTop();
       } catch (err) {
         setSendDisabled(false);
-        Alert.alert(
-          'Não foi possível enviar a imagem para o Datashow!',
-          'Falha na comunicação com o servidor, verifique sua conexão com a internet.'
-        );
+        // Alert.alert(
+        //   'Não foi possível enviar a imagem para o Datashow!',
+        //   'Falha na comunicação com o servidor, verifique sua conexão com a internet.'
+        // );
+
+        Alert.alert('error', JSON.stringify(err));
       } finally {
         setLoading(false);
       }
