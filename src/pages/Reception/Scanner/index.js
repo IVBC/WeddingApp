@@ -8,6 +8,8 @@ import {
   StyleSheet,
   Vibration,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -159,7 +161,14 @@ const Scanner = () => {
           onBackdropPress={toggleModalCode}
           backdropColor="transparent"
         >
-          <View style={styles.modalCode}>
+          <KeyboardAvoidingView
+            style={{
+              ...styles.modalCode,
+            }}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            enabled
+            keyboardVerticalOffset={100}
+          >
             <Header>
               <TitleHeader>Quem são os convidados?</TitleHeader>
 
@@ -196,7 +205,7 @@ const Scanner = () => {
             >
               Verificar
             </ButtonPrimary>
-          </View>
+          </KeyboardAvoidingView>
         </Modal>
         {!family ? (
           <>

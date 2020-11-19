@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Alert, PermissionsAndroid } from 'react-native';
+import { Alert, PermissionsAndroid, Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
@@ -14,7 +14,6 @@ import {
   Content,
   CameraContainer,
   SubmitButton,
-  Camera,
   Text,
   Preview,
   PhotoContainer,
@@ -32,16 +31,8 @@ export default function SendPhotos() {
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
   const [imageUri, setImageUri] = useState(null);
-  const cameraRef = useRef(null);
 
   const openPicker = useCallback(async () => {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      {
-        title: 'We need your permission',
-      }
-    );
-
     const options = {
       title: 'Selecione a Image',
       takePhotoButtonTitle: 'Tirar Foto',
@@ -53,57 +44,59 @@ export default function SendPhotos() {
         path: 'CasamentoDenise&Isaque',
       },
     };
-
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('You can use the camera');
-
-      ImagePicker.showImagePicker(options, (response) => {
-        setLoadingImage(true);
-        if (response.error) {
-          Alert.alert('Erro!', response.error);
-          navigation.goBack();
-          // eslint-disable-next-line no-empty
-        } else if (response.didCancel) {
-          navigation.goBack();
-        } else {
-          const source = response;
-
-          setFileSource(source);
-          setImageUri(source.uri);
-          // ImageResizer.createResizedImage(response.uri, 500, 500, 'JPEG', 70)
-          //   .then(({ uri }) => {
-          //     const prefix = new Date().getTime();
-
-          //     const img = {
-          //       uri,
-          //       type: response.type,
-          //       name: `${prefix}.jpg`,
-          //     };
-
-          //     const tempImage = image;
-
-          //     tempImage[index] = img;
-
-          //     setImage(tempImage);
-          //   })
-          //   .catch((err) => {
-          //     Alert.alert(
-          //       translate('imageError'),
-          //       translate('imageErrorDescription')
-          //     );
-          //   });
+    if (Platform.os === 'android') {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Nós precisamos de sua permissão para acessar a câmera',
         }
-      });
-    } else {
-      Toast.show({
-        position: 'bottom',
-        type: 'error',
-        text1: 'Ae! Nós agradecemos! 🤩❤️',
-        text2:
-          'O envio da imagem foi realizado com sucesso e logo ela será exibida 😊',
-        visibilityTime: 10000,
-      });
+      );
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+        Toast.show({
+          position: 'bottom',
+          type: 'error',
+          text1: 'Opa! Permissão de uso da câmera',
+          text2:
+            'Precisamos de sua permissão para usar seu telefone com câmera',
+          visibilityTime: 10000,
+        });
+        return;
+      }
     }
+
+    ImagePicker.showImagePicker(options, (response) => {
+      setLoadingImage(true);
+      if (response.error) {
+        Alert.alert('Erro!', response.error);
+        navigation.goBack();
+        // eslint-disable-next-line no-empty
+      } else if (response.didCancel) {
+        navigation.goBack();
+      } else {
+        const source = response;
+
+        setFileSource(source);
+        setImageUri(source.uri);
+
+        // ImageResizer.createResizedImage(response.uri, 500, 500, 'JPEG', 70)
+        //   .then(({ uri }) => {
+        //     const prefix = new Date().getTime();
+
+        //     const img = {
+        //       uri,
+        //       type: response.type,
+        //       name: `${prefix}.jpg`,
+        //     };
+
+        //     setFileSource(img);
+
+        //     setImageUri(uri);
+        //   })
+        //   .catch((err) => {
+        //     Alert.alert(`Erro ao comprimir imagem`);
+        //   });
+      }
+    });
   }, [navigation]);
 
   useEffect(() => {
@@ -125,19 +118,32 @@ export default function SendPhotos() {
   }, [navigation, openPicker]);
 
   async function handleUpload() {
+    if (loading) {
+      return;
+    }
     if (imageUri) {
       try {
         setLoading(true);
 
         const dataFile = new FormData();
 
-        dataFile.append('file', {
+        const prefix = new Date().getTime();
+
+        const file = {
           type: 'image/jpg',
           uri: imageUri,
-          name: fileSource.fileName,
-        });
+          name: fileSource.fileName
+            ? fileSource.fileName
+            : `${
+                prefix + parseInt(Math.random() * 100000000000000000, 10)
+              }.jpg`,
+        };
 
-        await api.post(`files/${family.code}/photo`, dataFile);
+        dataFile.append('file', file);
+
+        await api.post(`files/${family.code}/photo`, dataFile, {
+          timeout: 60 * 5 * 1000,
+        });
 
         setSendDisabled(true);
 
@@ -156,7 +162,18 @@ export default function SendPhotos() {
         //   'Falha na comunicação com o servidor, verifique sua conexão com a internet.'
         // );
 
-        Alert.alert('error', JSON.stringify(err));
+        Toast.show({
+          position: 'bottom',
+          type: 'error',
+          text1: 'Opa! Não foi possível enviar a imagem para o Datashow!',
+          text2:
+            'Falha na comunicação com o servidor, verifique sua conexão com a internet.',
+          visibilityTime: 10000,
+        });
+
+        // Alert.alert('error', JSON.stringify(err));
+
+        // console.log(err.response);
       } finally {
         setLoading(false);
       }

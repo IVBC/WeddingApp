@@ -69,5 +69,5 @@ export const ButtonText = styled.Text`
   color: ${colors.white};
   margin-right: 0px;
   margin-left: 6px;
-  font-family: 'Roboto-Regular';
+  font-family: 'Roboto-Medium';
 `;

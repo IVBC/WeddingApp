@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { FloatingAction } from 'react-native-floating-action';
 
@@ -12,6 +12,9 @@ import {
   TableName,
   NumberTable,
   IconFloatingButton,
+  CodeIndicator,
+  CodeText,
+  CodeValue,
 } from './styles';
 
 import colors from '~/styles/colors';
@@ -80,14 +83,20 @@ const Guests = () => {
             Ficaremos felizes com a presença de todos vocês !
           </SubTitleWelcome>
         </WelcomeTextContainer>
-        <TableIndicator>
-          <TableName>MESA</TableName>
-          <NumberTable>
-            {family?.numberTable < 10
-              ? `0${family?.numberTable}`
-              : family?.numberTable}
-          </NumberTable>
-        </TableIndicator>
+        <View>
+          <TableIndicator>
+            <TableName>MESA</TableName>
+            <NumberTable>
+              {family?.numberTable < 10
+                ? `0${family?.numberTable}`
+                : family?.numberTable}
+            </NumberTable>
+          </TableIndicator>
+          <CodeIndicator>
+            <CodeText>SENHA</CodeText>
+            <CodeValue>{family?.code}</CodeValue>
+          </CodeIndicator>
+        </View>
       </WelcomeContainer>
       {/* <Card>
         <Description>

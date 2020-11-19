@@ -19,4 +19,6 @@ export const LegendIcon = styled(Icon).attrs(() => ({
 `;
 export const LegendText = styled.Text`
   font-size: 12px;
+  font-family: 'Roboto-Bold';
+  color: #6c89b2;
 `;

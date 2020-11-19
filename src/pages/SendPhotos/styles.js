@@ -36,10 +36,6 @@ export const Preview = styled.Image`
   border-radius: 4px;
 `;
 
-export const Camera = styled(RNCamera)`
-  flex: 1;
-`;
-
 export const Text = styled.Text`
   font-family: 'Roboto-Regular';
   font-style: normal;
