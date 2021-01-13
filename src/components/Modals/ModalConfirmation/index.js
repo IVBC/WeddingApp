@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { StatusBar, View } from 'react-native';
 import Modal from 'react-native-modal';
+import { useDispatch } from 'react-redux';
 import GuestsList from './GuestsList';
 
 import {
@@ -18,8 +19,11 @@ import {
 import api from '~/services/api';
 import Loading from '~/components/Loading';
 import colors from '~/styles/colors';
+import { updateProfileRequest } from '~/store/modules/user/actions';
 
 function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const [guests, setGuests] = useState(_guests);
 
@@ -39,6 +43,7 @@ function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
         setLoading(false);
 
         confirmGuests(guests);
+        dispatch(updateProfileRequest());
         close();
       })
       .catch(() => {

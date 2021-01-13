@@ -43,7 +43,7 @@ export const ContainerInput = styled.View`
   width: 100%;
 
   align-items: center;
-  padding: 0 12px;
+  padding: 12px;
 
   margin: 8px 0 12px;
 

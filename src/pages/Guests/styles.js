@@ -49,12 +49,14 @@ export const TableIndicator = styled.View`
 export const TableName = styled.Text`
   color: #6c89b2;
   font-size: 12px;
+  font-family: 'Roboto';
 `;
 export const NumberTable = styled.Text`
   color: #6c89b2;
   font-weight: bold;
   font-size: 32px;
   line-height: 32px;
+  /* font-family: 'Roboto'; */
 `;
 
 export const Card = styled.View`
@@ -65,7 +67,8 @@ export const Card = styled.View`
 `;
 
 export const Description = styled.Text`
-  font-family: Roboto;
+  font-family: 'Roboto';
+
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -112,4 +115,21 @@ export const FloatingButtonLeft = styled.TouchableOpacity`
   bottom: 8px;
   align-items: center;
   justify-content: center;
+`;
+
+export const CodeIndicator = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+`;
+export const CodeText = styled.Text`
+  color: #6c89b2;
+  font-size: 10px;
+`;
+export const CodeValue = styled.Text`
+  color: #6c89b2;
+  font-family: 'Roboto-Black';
+  font-size: 16px;
+  line-height: 16px;
+  margin-bottom: 4px;
 `;

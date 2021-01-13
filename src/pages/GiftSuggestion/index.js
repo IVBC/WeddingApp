@@ -22,17 +22,35 @@ import {
 } from './styles';
 
 const GiftSuggestion = () => {
-  const handlePress = useCallback(async (url) => {
+  const handlePress = useCallback((url) => {
     // Checking if the link is supported for links with custom URL scheme.
-    const supported = await Linking.canOpenURL(url);
 
-    if (supported) {
-      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-      // by some browser in the mobile
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
+    Alert.alert(
+      '👋 Caro convidado (a),',
+      'Os presentes com valores menores estão destinados para aqueles com pouca condição financeira considerando o atual momento que vivemos. Se você possui uma condição melhor e compra um presente de valor baixo, logo estará tirando a oportunidade de uma pessoa com pouca condição de nos presentear. Desde já, agradecemos por tudo e aguardamos vocês! ❤️',
+      [
+        // {
+        //   text: 'Deixa pra lá',
+        //   onPress: () => console.log('Cancel Pressed'),
+        //   style: 'cancel',
+        // },
+        {
+          text: '👍 Ciente ',
+          onPress: async () => {
+            const supported = await Linking.canOpenURL(url);
+
+            if (supported) {
+              // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+              // by some browser in the mobile
+              await Linking.openURL(url);
+            } else {
+              Alert.alert(`Don't know how to open this URL: ${url}`);
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   }, []);
 
   return (

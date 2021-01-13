@@ -1,6 +1,5 @@
 import { takeLatest, call, put, all, select } from 'redux-saga/effects';
 import { Alert } from 'react-native';
-import { useSelector } from 'react-redux';
 import api from '~/services/api';
 import { updateProfileSuccess, updateProfileFailure } from './actions';
 
@@ -15,12 +14,11 @@ export function* updateProfile() {
 
     const { data: user } = response;
 
-    Alert.alert('Sucesso', 'Perfil atualizado com sucesso!');
     yield put(updateProfileSuccess(user));
   } catch (err) {
     Alert.alert(
-      'Falha na atualizacao',
-      'Houve um erro na atualizacao do perfil, verifique seus dados'
+      'Falha ao atualizar seus dados',
+      'Verifique sua conexão com a internet'
     );
     yield put(updateProfileFailure());
   }

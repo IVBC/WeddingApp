@@ -48,7 +48,7 @@ export default function MainTab() {
         <Tab.Screen
           name="GiftSuggestion"
           options={{
-            tabBarLabel: 'Sugestão',
+            tabBarLabel: 'Presente',
             tabBarIcon: 'redeem',
           }}
           component={GiftSuggestion}
