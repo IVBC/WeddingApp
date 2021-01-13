@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, memo } from 'react';
+import React, { useCallback, useState, useMemo, memo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -28,7 +28,9 @@ function GuestsList({ data }) {
 
   const [loading, setLoading] = useState(false);
 
-  // Selection for guest type
+  useEffect(() => {
+    setGuests(data);
+  }, [data]);
 
   const [isModalVisibleConfirmation, setModalVisibleConfirmation] = useState(
     false

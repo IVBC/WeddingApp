@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { FloatingAction } from 'react-native-floating-action';
@@ -20,6 +20,7 @@ import GuestsList from './GuestsList';
 import ModalQrCode from '~/components/Modals/ModalQrCode';
 
 import { signOut } from '~/store/modules/auth/actions';
+import { updateProfileRequest } from '~/store/modules/user/actions';
 
 const actions = [
   {
@@ -51,6 +52,13 @@ const Guests = () => {
   const openQrCode = () => setModalVisibleQrCode((prev) => !prev);
 
   const family = useSelector((state) => state.user.profile);
+
+  useEffect(()=> {
+    dispatch(updateProfileRequest());
+  }, []);
+
+
+  console.log(family.guests)
 
   const handleLogOut = useCallback(() => {
     Alert.alert(

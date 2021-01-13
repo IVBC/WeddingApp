@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { StatusBar, View } from 'react-native';
 import Modal from 'react-native-modal';
@@ -22,6 +22,10 @@ import colors from '~/styles/colors';
 function ModalConfirmation({ isOpen, close, guests: _guests, confirmGuests }) {
   const [loading, setLoading] = useState(false);
   const [guests, setGuests] = useState(_guests);
+
+  useEffect(() => {
+    setGuests(_guests);
+  }, [isOpen, _guests]);
 
   const updateGuests = (gts) => {
     setGuests(gts);
